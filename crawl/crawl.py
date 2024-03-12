@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 from urllib.request import (urlopen, urlparse, urlunparse, urlretrieve)
+from tqdm import tqdm
+import time
 
 # 구글 이미지 url
 service = ChromeService(executable_path=ChromeDriverManager().install())
@@ -111,13 +113,14 @@ images_url = pd.DataFrame(images_url)[0].unique()
 # 해당하는 파일에 이미지 다운로드
 # 이미지를 다운로드하는 코드는 주석 처리했습니다. 필요에 따라 주석을 해제하여 사용하십시오.
 
-if not os.path.exists(f'images/{image_name}'):
-    os.makedirs(f'images/{image_name}')
+if not os.path.exists(f'../images/{image_name}'):
+    os.makedirs(f'../images/{image_name}')
 
 original_dir = os.getcwd()
-os.chdir(f'images/{image_name}')
+os.chdir(f'../images/{image_name}')
 
-for t, url in enumerate(images_url, 0):
+for t, url in enumerate(tqdm(images_url), 0):
     urllib.request.urlretrieve(url, image_name + '_' + str(t) + '.jpg')
 
 os.chdir(original_dir)
+print("Images are all saved")
