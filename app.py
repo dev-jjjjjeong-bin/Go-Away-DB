@@ -8,6 +8,18 @@ app = Flask(__name__)
 def main():
     return render_template('main.html')
 
+@app.route('/user_info_edit/<int:edit_idx>', methods=['GET']) # 꺽새는 동적인 값을 줌
+def getUser(edit_idx):
+    if session.get('logFlag') != True:
+        return redirect(url_for('login_form'))
+    conn = sqlite3.connect('python.db')
+    cursor = conn.cursor()
+    sql = "select userEmail from member where idx = ?"
+    cursor.execute(sql, (edit_idx, ))
+    row = cursor.fetchone()
+    edit_email = row[0]
+    return render_template('users/user_info.html', edit_idx=edit_idx, edit_email=edit_email)
+
 
 @app.route('/login_form')
 def login_form():
@@ -39,7 +51,30 @@ def login_proc():
                 return redirect(url_for('login_form'))
 
 
+    @app.route('/user_info_edit_proc', method=['POST'])
+    def user_info_edit_proc():
+        idx = request.form['idx']
+        userPwd = request.form['userPwd']
+        userEmail = request.form['userEmail']
+
+        if len(idx) == 0:
+            return 'Edit Data Nor Found!'
+        else:
+            conn = sqlite3.connect('python.db')
+            cursor = conn.cursor()
+            sql = '''
+                update member
+                    set userPwd = ?, userEmail = ?
+                    where idx = ?
+            '''
+            cursor.execute(sql, (userPwd, userEmail, idx))
+            conn.commit()
+            cursor.close()
+            conn.close()
+            return redirect(url_for('main'))
+
+
 app.secret_key = 'sample_secret_key'
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=8888, debug=True)
