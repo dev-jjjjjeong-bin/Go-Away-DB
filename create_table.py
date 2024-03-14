@@ -7,12 +7,26 @@ cursor = conn.cursor()
 def insertDb():
     # cursor.execute('drop table member') # table 삭제 시 사용
     sql = """
-        create table member(
-            idx integer primary key autoincrement,
-            userId text not null,
-            userPwd text not null,
-            userEmail text,
-            regDate default(datetime('now', 'localtime')))
+        CREATE TABLE user (
+            user_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            role ENUM('role_user', 'role_admin', 'role_guest') NOT NULL,
+            name VARCHAR(100) NOT NULL,
+            email VARCHAR(100) NOT NULL,
+            password TEXT NOT NULL,
+            phone VARCHAR(20),
+            birth VARCHAR(6),
+            gender VARCHAR(5),
+            profile_img TEXT,
+            user_status INT,
+            introduce TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            nick_name VARCHAR(100),
+            grade VARCHAR(20),
+            height INT,
+            weight INT
+        );
+
     """
     cursor.execute(sql)
 
