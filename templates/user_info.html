@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>users/user_info.html</title>
+</head>
+<body>
+<form action="/user_info_edit_proc" method="post">
+     회원정보 수정<hr>
+    <input type="hidden" name="idx" value="{{ edit_idx }}">
+    User ID : {{ session.get('userId') }}
+    User PWD : <input type="password" name="userPwd" value="" ><br>
+    User Email : <input type="text" name="userEmail" value="{{ edit_email }}">
+    <br><input type="submit" value="수정">
+
+</form>
+</body>
+</html>
