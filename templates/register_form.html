@@ -5,25 +5,14 @@
     <title>login_form.html</title>
 </head>
 <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 <form action="/register" method="post">
-    NAME : <input type="text" name="name"><br>
-    ID : <input type="text" name="id"><br>
-    PWD : <input type="password" name="pwd"><br>
-    RE-PWD : <input type="password" name="confirm_pwd"><br>
-    EMAIL : <input type="email"  name="email"><br>
-    PHONE : <input type="tel" name="phone"><br>
-    BIRTH : <input type="date" name="birth"><br>
     <input type="radio" id="male" name="gender" value="male">
     <label for="male">Male</label>
     <input type="radio" id="female" name="gender" value="female">
     <label for="female">Female</label><br>
+    키 : <input type="number" name="height"><br>
+    몸무게 : <input type="number" name="weight"><br>
+    나이 : <input type="number" name="age"><br>
     <input type="submit" value="회원가입">
 </form>
 </body>
