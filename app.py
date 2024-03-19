@@ -87,5 +87,30 @@ def body():
         return render_template("submit_spec.html")
 
 
+@app.route('/info_edit', methods=['GET', 'POST'])
+def info_edit():
+    if request.method == 'GET':
+        conn = sqlite3.connect('python.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT gender, age, height, weight FROM member WHERE id = ?", (id, ))
+        already_info = cursor.fetchone()
+
+        return render_template('info_edit.html', already_info=already_info)
+    elif request.method == 'POST':
+        edit_info = {
+            "gender": request.form['gender'],
+            "age": request.form['age'],
+            "height": request.form['height'],
+            "weight": request.form['weight']
+        }
+        conn = sqlite3.connect('python.db')
+        cursor = conn.cursor()
+        cursor.execute("UPDATE member SET gender=?, height=?, weight=?, age=? WHERE id=?",
+                       (edit_info['gender'], edit_info['height'], edit_info['weight'], edit_info['age'], id))
+        conn.commit()
+        conn.close()
+        return render_template("main.html")
+
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8888, debug=True)
