@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 95,
     marginLeft: 34,
-    fontWeight: "600",
+    fontFamily: 'Inter-SemiBold',
     fontSize: 45,
     color: "#1047AD",
   },
@@ -90,12 +90,12 @@ const styles = StyleSheet.create({
   },
   questionText: {
     fontSize: 15,
-    fontWeight: "400",
+    fontFamily: 'Inter-Regular',
     color: "black",
   },
   completeText: {
     fontSize: 30,
-    fontWeight: "600",
+    fontFamily: 'Inter-SemiBold',
     color: "#1047AD"
   },
   buttonContainer: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   button: {
     color: "white",
     fontSize: 20,
-    fontWeight: "600"
+    fontFamily: 'Inter-SemiBold'
   },
   genderButtonsContainer: {
     flexDirection: 'row',
