@@ -23,10 +23,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#1047AD',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 70,
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 300,
+    height: 300,
     resizeMode: 'contain',
   },
 });
