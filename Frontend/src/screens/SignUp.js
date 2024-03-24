@@ -27,12 +27,12 @@ const SignUp: () => Node = () => {
   return (
       <View>
         <View id="title">
-          <Text style={styles.title}>Sign up</Text>
+          <Text style={styles.title}>회원정보 입력</Text>
           <View style={styles.titleBar} />
         </View>
         {(state == 3 ?
             <View style={{marginTop:139, marginLeft:43}}>
-              <Text style={styles.completeText}>회원가입이 {'\n'}완료되었습니다.</Text>
+              <Text style={styles.completeText}>회원정보 입력이 {'\n'}완료되었습니다.</Text>
             </View> :
             <View id="signUpQuestion" style={styles.mainContainer}>
               {(state == 0 ? // gender
@@ -61,7 +61,7 @@ const SignUp: () => Node = () => {
         )}
         <View id="button" style={[styles.mainContainer, {flex:1, justifyCenter:"flex-end", marginBottom:100}]}>
           <TouchableOpacity style={styles.buttonContainer} onPress={handleStateButtonPress}>
-            <Text style={styles.button}>{(state == 3 ? "Login" : "Next")}</Text>
+            <Text style={styles.button}>{(state == 3 ? "완료" : "다음")}</Text>
           </TouchableOpacity>
         </View>
       </View>
