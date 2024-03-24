@@ -33,7 +33,6 @@ const App: () => Node = () => {
 
   return (
     <SafeAreaView>
-
             <SignUp />
     </SafeAreaView>
   );
