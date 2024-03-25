@@ -1,5 +1,5 @@
+/* eslint-disable */
 import React, {useEffect} from 'react';
-import type {Node} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 
 const LoadingScreen = ({navigation}) => {

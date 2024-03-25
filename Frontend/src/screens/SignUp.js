@@ -1,9 +1,9 @@
+/* eslint-disable */
 import React, {useState} from 'react';
-import type {Node} from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const SignUp: () => Node = () => {
+const SignUp = () => {
   const [state, setState] = useState(0); //0: 성별, 1: 나이, 2: 체격, 3: 완료
   const [gender, setGender] = useState('');
   const [textAge, setTextAge] = useState(0);

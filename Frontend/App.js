@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -35,7 +34,7 @@ const SignIn = false; // 회원가입 여부
 
 const Stack = createNativeStackNavigator();
 
-const App: () => Node = () => {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -52,7 +51,7 @@ const App: () => Node = () => {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
