@@ -37,7 +37,7 @@ const SignUp: () => Node = () => {
 
 
   return (
-      <View>
+      <View style={{backgroundColor:"white"}}>
         <View id="title">
           <Text style={styles.title}>Sign up</Text>
           <View style={styles.titleBar} />

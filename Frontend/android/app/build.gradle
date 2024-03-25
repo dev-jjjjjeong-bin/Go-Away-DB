@@ -260,6 +260,11 @@ android {
 }
 
 dependencies {
+    implementation "androidx.appcompat:appcompat-resources:1.5.0"
+    implementation "androidx.appcompat:appcompat:1.5.0"
+    implementation "androidx.emoji2:emoji2-views-helper:1.2.0"
+    implementation "androidx.emoji2:emoji2:1.2.0"
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
