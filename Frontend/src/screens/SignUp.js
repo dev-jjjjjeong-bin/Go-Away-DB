@@ -37,7 +37,7 @@ const SignUp: () => Node = () => {
 
 
   return (
-      <View style={{backgroundColor:"white"}}>
+      <View style={{flex: 1, backgroundColor: "white", justifyContent: "space-between"}}>
         <View id="title">
           <Text style={styles.title}>회원정보 입력</Text>
           <View style={styles.titleBar} />
@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#1047AD",
     width: 291,
     height: 50,
-    borderRadius: 10
+    borderRadius: 10,
+    marginBottom: 30,
   },
   button: {
     color: "white",
