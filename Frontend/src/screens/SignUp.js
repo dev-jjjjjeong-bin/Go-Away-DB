@@ -54,12 +54,12 @@ const SignUp: () => Node = () => {
                       <TouchableOpacity
                           style={[styles.genderButton, gender === 'male' && styles.selectedGenderButton]}
                           onPress={() => handleGenderButtonPress('male')}>
-                        <Text style={(gender == 'male' ? {color:"white"} : {color:"black"})}>남</Text>
+                        <Text style={[styles.genderText, (gender == 'male' ? {color:"white"} : {color:"black"})]}>남</Text>
                       </TouchableOpacity>
                       <TouchableOpacity
                           style={[styles.genderButton, gender === 'female' && styles.selectedGenderButton]}
                           onPress={() => handleGenderButtonPress('female')}>
-                        <Text style={(gender == 'female' ? {color:"white"} : {color:"black"})}>여</Text>
+                        <Text style={[styles.genderText, (gender == 'female' ? {color:"white"} : {color:"black"})]}>여</Text>
                       </TouchableOpacity>
                     </View>
                   </View> :
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 95,
     marginLeft: 34,
-    fontFamily: 'Inter-ExtraBold',
+    fontFamily: 'SCDream7',
     fontSize: 45,
     color: "#1047AD",
   },
@@ -122,13 +122,13 @@ const styles = StyleSheet.create({
     height: 370
   },
   questionText: {
-    fontSize: 15,
-    fontFamily: 'Inter-SemiBold',
+    fontSize: 20,
+    fontFamily: 'SCDream6',
     color: "black",
   },
   completeText: {
     fontSize: 30,
-    fontFamily: 'Inter-SemiBold',
+    fontFamily: 'SCDream6',
     color: "#1047AD"
   },
   buttonContainer: {
@@ -140,10 +140,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 30,
   },
-  button: {
+  button: {   // '다음', '완료' 버튼
     color: "white",
     fontSize: 20,
-    fontFamily: 'Inter-Bold'
+    fontFamily: 'SCDream6'
   },
   genderButtonsContainer: {
     justifyContent: "center",
@@ -163,10 +163,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#1047AD',
     color: 'white',
   },
-  ageText: {
+  genderText: {   // '남', '여' 글씨
+      fontFamily: 'SCDream5',
+      fontSize: 20,
+  },
+  ageText: {   // 만 blank 세, 신장 blank cm, 몸무게 blank kg
     textAlign: "right",
-    fontFamily: 'Inter-SemiBold',
-    fontSize: 15,
+    fontFamily: 'SCDream6',
+    fontSize: 18,
     color: "black"
   },
   ageButton: {
