@@ -43,13 +43,8 @@ const SignUp: () => Node = () => {
           <View style={styles.titleBar} />
         </View>
         {(state == 3 ?
-<<<<<<< HEAD
             <View style={{marginTop:139, marginLeft:43, height: 370}}>
-              <Text style={styles.completeText}>회원가입이 {'\n'}완료되었습니다.</Text>
-=======
-            <View style={{marginTop:139, marginLeft:43}}>
               <Text style={styles.completeText}>회원정보 입력이 {'\n'}완료되었습니다.</Text>
->>>>>>> c1495184e08fba0715b45ba86d125e66eff29ee9
             </View> :
             <View id="signUpQuestion" style={styles.mainContainer}>
               {(state == 0 ?
@@ -99,11 +94,7 @@ const SignUp: () => Node = () => {
         )}
         <View id="nextButton" style={{alignItems:'center'}}>
           <TouchableOpacity style={styles.buttonContainer} onPress={handleStateButtonPress}>
-<<<<<<< HEAD
-            <Text style={styles.button}>{(state == 3 ? "로그인" : "다음")}</Text>
-=======
             <Text style={styles.button}>{(state == 3 ? "완료" : "다음")}</Text>
->>>>>>> c1495184e08fba0715b45ba86d125e66eff29ee9
           </TouchableOpacity>
         </View>
       </View>
@@ -114,7 +105,7 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 95,
     marginLeft: 34,
-    fontFamily: 'Inter-SemiBold',
+    fontFamily: 'Inter-ExtraBold',
     fontSize: 45,
     color: "#1047AD",
   },
