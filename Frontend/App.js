@@ -1,36 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+/* eslint-disable */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoadingScreen from './src/screens/LoadingScreen';
 import SignUp from './src/screens/SignUp';
 import Home from './src/screens/Home';
-
-const SignIn = false; // 회원가입 여부
 
 const Stack = createNativeStackNavigator();
 
@@ -41,12 +19,12 @@ const App = () => {
         <Stack.Screen
           name="Loading"
           component={LoadingScreen}
-          options={{headerShown: false}} // 로딩 화면에는 헤더가 보이지 않도록 설정
+          options={{headerShown: false}}   // 로딩 화면에는 헤더가 보이지 않도록 설정
         />
         <Stack.Screen
           name="SignUp"
           component={SignUp}
-          options={{headerShown: false, tabBarStyle: {display: 'none'}}} // SignUp 화면에도 헤더가 보이지 않도록 설정
+          options={{headerShown: false, tabBarStyle: {display: 'none'}}}   // SignUp 화면에도 헤더가 보이지 않도록 설정
         />
         <Stack.Screen
           name="Home"

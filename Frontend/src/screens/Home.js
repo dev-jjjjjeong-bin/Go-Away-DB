@@ -1,8 +1,9 @@
 /* eslint-disable */
+
 import React from 'react';
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   // 각 박스 및 하단바의 아이콘을 눌렀을 때의 동작 추가
 
   return (

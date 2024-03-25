@@ -1,10 +1,11 @@
 /* eslint-disable */
-import React, {useState} from 'react';
+
+import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const SignUp = () => {
-  const [state, setState] = useState(0); //0: 성별, 1: 나이, 2: 체격, 3: 완료
+  const [state, setState] = useState(0);   //0: 성별, 1: 나이, 2: 체격, 3: 완료
   const [gender, setGender] = useState('');
   const [textAge, setTextAge] = useState(0);
   const [textHeight, setTextHeight] = useState(0);
@@ -39,69 +40,71 @@ const SignUp = () => {
   const navigation = useNavigation();
 
   return (
-      <View style={{flex: 1, backgroundColor: "white", justifyContent: "space-between"}}>
-        <View id="title">
-          <Text style={styles.title}>회원정보 입력</Text>
-          <View style={styles.titleBar} />
+    <View style={{flex: 1, backgroundColor: "white", justifyContent: "space-between"}}>
+      <View id="title">
+        <Text style={styles.title}>회원정보 입력</Text>
+        <View style={styles.titleBar} />
+      </View>
+      {(state == 3 ?
+        <View style={{marginTop:139, marginLeft:43, height: 370}}>
+          <Text style={styles.completeText}>회원정보 입력이 {'\n'}완료되었습니다.</Text>
         </View>
-        {(state == 3 ?
-            <View style={{marginTop:139, marginLeft:43, height: 370}}>
-              <Text style={styles.completeText}>회원정보 입력이 {'\n'}완료되었습니다.</Text>
-            </View> :
-            <View id="signUpQuestion" style={styles.mainContainer}>
-              {(state == 0 ?
-                  <View id="genderSection" style={{alignItems: "center"}}>
-                    <Text style={styles.questionText}>귀하의 성별을 입력해주세요</Text>
-                    <View style={styles.genderButtonsContainer}>
-                      <TouchableOpacity
-                          style={[styles.genderButton, gender === 'male' && styles.selectedGenderButton]}
-                          onPress={() => handleGenderButtonPress('male')}>
-                        <Text style={[styles.genderText, (gender == 'male' ? {color:"white"} : {color:"black"})]}>남</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                          style={[styles.genderButton, gender === 'female' && styles.selectedGenderButton]}
-                          onPress={() => handleGenderButtonPress('female')}>
-                        <Text style={[styles.genderText, (gender == 'female' ? {color:"white"} : {color:"black"})]}>여</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View> :
-              state == 1 ?
-                  <View id="ageSection">
-                    <Text style={styles.questionText}>귀하의 연령을 입력하여 주세요</Text>
-                    <View style={[styles.genderButtonsContainer, {alignItems:"center", justifyContent: "center"}]}>
-                      <Text style={[styles.ageText, {marginRight: 13}]}>만</Text>
-                      <TextInput onChangeText={handleTextAgeChange} value={(textAge=='') ? " ": textAge.toString()}
-                                 style={styles.ageButton} keyboardType="numeric" textAlign="right"/>
-                      <Text style={[styles.ageText, {marginLeft: 13}]}>세</Text>
-                    </View>
-                  </View>
-                  :
-                  <View id="bodySection">
-                    <Text style={styles.questionText}>귀하의 신장과 몸무게를 입력하여 주세요</Text>
-                    <View style={[styles.genderButtonsContainer, {alignItems:"center", justifyContent: "center"}]}>
-                      <Text style={[styles.ageText, {marginRight: 13}]}>신장</Text>
-                      <TextInput onChangeText={handleTextHeightChange} value={(textHeight=='') ? " ": textHeight.toString()}
-                                 style={styles.ageButton} keyboardType="numeric" textAlign="right"/>
-                      <Text style={[styles.ageText, {marginLeft: 13}]}>cm</Text>
-                    </View>
-                    <View style={[{justifyContent: "center", flexDirection: 'row', alignItems:"center", marginTop:40, paddingRight:13}]}>
-                      <Text style={[styles.ageText, {marginRight: 13}]}>몸무게</Text>
-                      <TextInput onChangeText={handleTextWeightChange} value={(textWeight=='') ? " ": textWeight.toString()}
-                                 style={styles.ageButton} keyboardType="numeric" textAlign="right"/>
-                      <Text style={[styles.ageText, {marginLeft: 13}]}>kg</Text>
-                    </View>
-                  </View>
-              )}
+      :
+        <View id="signUpQuestion" style={styles.mainContainer}>
+          {(state == 0 ?
+            <View id="genderSection" style={{alignItems: "center"}}>
+              <Text style={styles.questionText}>귀하의 성별을 입력해주세요</Text>
+              <View style={styles.genderButtonsContainer}>
+                <TouchableOpacity
+                  style={[styles.genderButton, gender === 'male' && styles.selectedGenderButton]}
+                  onPress={() => handleGenderButtonPress('male')}>
+                  <Text style={[styles.genderText, (gender == 'male' ? {color:"white"} : {color:"black"})]}>남</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.genderButton, gender === 'female' && styles.selectedGenderButton]}
+                  onPress={() => handleGenderButtonPress('female')}>
+                <Text style={[styles.genderText, (gender == 'female' ? {color:"white"} : {color:"black"})]}>여</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-        )}
-        <View id="navigationButtons" style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 30}}>
-          <TouchableOpacity style={[styles.buttonContainer, {width: 140}]} onPress={handlePreviousButtonPress}>
-            <Text style={styles.button}>이전</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.buttonContainer, {width: 140}]} onPress={handleStateButtonPress}>
-            <Text style={styles.button}>{(state === 3 ? "완료" : "다음")}</Text>
-          </TouchableOpacity>
+          :
+            state == 1 ?
+              <View id="ageSection">
+                <Text style={styles.questionText}>귀하의 연령을 입력하여 주세요</Text>
+                  <View style={[styles.genderButtonsContainer, {alignItems:"center", justifyContent: "center"}]}>
+                    <Text style={[styles.ageText, {marginRight: 13}]}>만</Text>
+                    <TextInput onChangeText={handleTextAgeChange} value={(textAge=='') ? " ": textAge.toString()}
+                      style={styles.ageButton} keyboardType="numeric" textAlign="right"/>
+                    <Text style={[styles.ageText, {marginLeft: 13}]}>세</Text>
+                  </View>
+                </View>
+            :
+              <View id="bodySection">
+                <Text style={styles.questionText}>귀하의 신장과 몸무게를 입력하여 주세요</Text>
+                <View style={[styles.genderButtonsContainer, {alignItems:"center", justifyContent: "center"}]}>
+                  <Text style={[styles.ageText, {marginRight: 13}]}>신장</Text>
+                  <TextInput onChangeText={handleTextHeightChange} value={(textHeight=='') ? " ": textHeight.toString()}
+                    style={styles.ageButton} keyboardType="numeric" textAlign="right"/>
+                  <Text style={[styles.ageText, {marginLeft: 13}]}>cm</Text>
+                </View>
+                <View style={[{justifyContent: "center", flexDirection: 'row', alignItems:"center", marginTop:40, paddingRight:13}]}>
+                  <Text style={[styles.ageText, {marginRight: 13}]}>몸무게</Text>
+                  <TextInput onChangeText={handleTextWeightChange} value={(textWeight=='') ? " ": textWeight.toString()}
+                    style={styles.ageButton} keyboardType="numeric" textAlign="right"/>
+                  <Text style={[styles.ageText, {marginLeft: 13}]}>kg</Text>
+                </View>
+              </View>
+          )}
         </View>
+      )}
+      <View id="navigationButtons" style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 30}}>
+        <TouchableOpacity style={[styles.buttonContainer, {width: 140}]} onPress={handlePreviousButtonPress}>
+          <Text style={styles.button}>이전</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.buttonContainer, {width: 140}]} onPress={handleStateButtonPress}>
+          <Text style={styles.button}>{(state === 3 ? "완료" : "다음")}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -190,4 +193,3 @@ const styles = StyleSheet.create({
 });
 
 export default SignUp;
-
