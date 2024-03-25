@@ -29,6 +29,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoadingScreen from './src/screens/LoadingScreen';
 import SignUp from './src/screens/SignUp';
+import Home from './src/screens/Home';
 
 const SignIn = false; // 회원가입 여부
 
@@ -47,6 +48,11 @@ const App: () => Node = () => {
           name="SignUp"
           component={SignUp}
           options={{headerShown: false, tabBarStyle: {display: 'none'}}} // SignUp 화면에도 헤더가 보이지 않도록 설정
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

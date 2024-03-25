@@ -1,11 +1,7 @@
 import React, {useState} from 'react';
 import type {Node} from 'react';
-import {
-  StyleSheet,
-  Text, TextInput,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const SignUp: () => Node = () => {
   const [state, setState] = useState(0); //0: 성별, 1: 나이, 2: 체격, 3: 완료
@@ -18,13 +14,18 @@ const SignUp: () => Node = () => {
     // if (state != 3) {
     //   setState(state+1);
     // }
-
+    if (state === 3) {
+      navigation.navigate('Home');
+    }
+    else {
+      setState((current) => (current + 1) % 4);
+    }
     setState((state+1)%4);
     console.log(state);
-  }
+  };
   const handleGenderButtonPress = (selectedGender) => {
     setGender(selectedGender);
-  }
+  };
   const handleTextAgeChange = (inputText) => {
     setTextAge(inputText);
   };
@@ -34,6 +35,8 @@ const SignUp: () => Node = () => {
   const handleTextWeightChange = (inputText) => {
     setTextWeight(inputText);
   };
+
+  const navigation = useNavigation();
 
 
   return (
