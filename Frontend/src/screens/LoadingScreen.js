@@ -1,13 +1,14 @@
-import React, {useEffect} from 'react';
-import type {Node} from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+/* eslint-disable */
 
-const LoadingScreen = ({navigation}) => {
+import React, {useEffect} from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+
+const LoadingScreen = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('SignUp'); // 3초 후에 SignUp 화면으로 네비게이션
+      navigation.navigate('InputInfo');   // 3초 후에 InputInfo 화면으로 네비게이션
     }, 3000);
-    return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 제거
+    return () => clearTimeout(timer);   // 컴포넌트 언마운트 시 타이머 제거
   }, [navigation]);
 
   return (
