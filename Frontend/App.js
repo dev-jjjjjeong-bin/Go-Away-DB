@@ -46,7 +46,7 @@ const App: () => Node = () => {
         <Stack.Screen
           name="SignUp"
           component={SignUp}
-          options={{headerShown: false}} // SignUp 화면에도 헤더가 보이지 않도록 설정
+          options={{headerShown: false, tabBarStyle: {display: 'none'}}} // SignUp 화면에도 헤더가 보이지 않도록 설정
         />
       </Stack.Navigator>
     </NavigationContainer>
