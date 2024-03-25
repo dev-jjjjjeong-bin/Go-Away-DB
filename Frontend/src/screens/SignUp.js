@@ -10,10 +10,10 @@ const SignUp = () => {
   const [textHeight, setTextHeight] = useState(0);
   const [textWeight, setTextWeight] = useState(0);
 
+  const handlePreviousButtonPress = () => {
+    setState((current) => (current - 1 + 4) % 4);
+  };
   const handleStateButtonPress = () => {
-    // if (state != 3) {
-    //   setState(state+1);
-    // }
     if (state === 3) {
       navigation.navigate('Home');
     }
@@ -37,7 +37,6 @@ const SignUp = () => {
   };
 
   const navigation = useNavigation();
-
 
   return (
       <View style={{flex: 1, backgroundColor: "white", justifyContent: "space-between"}}>
@@ -95,14 +94,17 @@ const SignUp = () => {
               )}
             </View>
         )}
-        <View id="nextButton" style={{alignItems:'center'}}>
-          <TouchableOpacity style={styles.buttonContainer} onPress={handleStateButtonPress}>
-            <Text style={styles.button}>{(state == 3 ? "완료" : "다음")}</Text>
+        <View id="navigationButtons" style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 30}}>
+          <TouchableOpacity style={[styles.buttonContainer, {width: 140}]} onPress={handlePreviousButtonPress}>
+            <Text style={styles.button}>이전</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.buttonContainer, {width: 140}]} onPress={handleStateButtonPress}>
+            <Text style={styles.button}>{(state === 3 ? "완료" : "다음")}</Text>
           </TouchableOpacity>
         </View>
-      </View>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   title: {
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 30,
   },
-  button: {   // '다음', '완료' 버튼
+  button: {   // '다음', '이전', '완료' 버튼
     color: "white",
     fontSize: 20,
     fontFamily: 'SCDream6'
