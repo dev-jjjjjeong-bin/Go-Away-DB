@@ -2,14 +2,17 @@ import React, {useState} from 'react';
 import type {Node} from 'react';
 import {
   StyleSheet,
-  Text,
+  Text, TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 
 const SignUp: () => Node = () => {
   const [state, setState] = useState(0); //0: 성별, 1: 나이, 2: 체격, 3: 완료
   const [gender, setGender] = useState('');
+  const [textAge, setTextAge] = useState(0);
+  const [textHeight, setTextHeight] = useState(0);
+  const [textWeight, setTextWeight] = useState(0);
 
   const handleStateButtonPress = () => {
     // if (state != 3) {
@@ -22,21 +25,30 @@ const SignUp: () => Node = () => {
   const handleGenderButtonPress = (selectedGender) => {
     setGender(selectedGender);
   }
+  const handleTextAgeChange = (inputText) => {
+    setTextAge(inputText);
+  };
+  const handleTextHeightChange = (inputText) => {
+    setTextHeight(inputText);
+  };
+  const handleTextWeightChange = (inputText) => {
+    setTextWeight(inputText);
+  };
 
 
   return (
-      <View>
+      <View style={{backgroundColor:"white"}}>
         <View id="title">
           <Text style={styles.title}>회원정보 입력</Text>
           <View style={styles.titleBar} />
         </View>
         {(state == 3 ?
-            <View style={{marginTop:139, marginLeft:43}}>
+            <View style={{marginTop:139, marginLeft:43, height: 370}}>
               <Text style={styles.completeText}>회원정보 입력이 {'\n'}완료되었습니다.</Text>
             </View> :
             <View id="signUpQuestion" style={styles.mainContainer}>
-              {(state == 0 ? // gender
-                  <View>
+              {(state == 0 ?
+                  <View id="genderSection" style={{alignItems: "center"}}>
                     <Text style={styles.questionText}>귀하의 성별을 입력해주세요</Text>
                     <View style={styles.genderButtonsContainer}>
                       <TouchableOpacity
@@ -51,15 +63,36 @@ const SignUp: () => Node = () => {
                       </TouchableOpacity>
                     </View>
                   </View> :
-              state == 1 ? // age
-                  <Text style={styles.questionText}>귀하의 연령을 입력해주세요</Text> :
-                  // height
-                  <Text style={styles.questionText}>귀하의 신장과 몸무게를 입력하여 주세요</Text>
+              state == 1 ?
+                  <View id="ageSection">
+                    <Text style={styles.questionText}>귀하의 연령을 입력하여 주세요</Text>
+                    <View style={[styles.genderButtonsContainer, {alignItems:"center", justifyContent: "center"}]}>
+                      <Text style={[styles.ageText, {marginRight: 13}]}>만</Text>
+                      <TextInput onChangeText={handleTextAgeChange} value={(textAge=='') ? " ": textAge.toString()}
+                                 style={styles.ageButton} keyboardType="numeric" textAlign="right"/>
+                      <Text style={[styles.ageText, {marginLeft: 13}]}>세</Text>
+                    </View>
+                  </View>
+                  :
+                  <View id="bodySection">
+                    <Text style={styles.questionText}>귀하의 신장과 몸무게를 입력하여 주세요</Text>
+                    <View style={[styles.genderButtonsContainer, {alignItems:"center", justifyContent: "center"}]}>
+                      <Text style={[styles.ageText, {marginRight: 13}]}>신장</Text>
+                      <TextInput onChangeText={handleTextHeightChange} value={(textHeight=='') ? " ": textHeight.toString()}
+                                 style={styles.ageButton} keyboardType="numeric" textAlign="right"/>
+                      <Text style={[styles.ageText, {marginLeft: 13}]}>cm</Text>
+                    </View>
+                    <View style={[{justifyContent: "center", flexDirection: 'row', alignItems:"center", marginTop:40, paddingRight:13}]}>
+                      <Text style={[styles.ageText, {marginRight: 13}]}>몸무게</Text>
+                      <TextInput onChangeText={handleTextWeightChange} value={(textWeight=='') ? " ": textWeight.toString()}
+                                 style={styles.ageButton} keyboardType="numeric" textAlign="right"/>
+                      <Text style={[styles.ageText, {marginLeft: 13}]}>kg</Text>
+                    </View>
+                  </View>
               )}
-
             </View>
         )}
-        <View id="button" style={[styles.mainContainer, {flex:1, justifyCenter:"flex-end", marginBottom:100}]}>
+        <View id="nextButton" style={{alignItems:'center'}}>
           <TouchableOpacity style={styles.buttonContainer} onPress={handleStateButtonPress}>
             <Text style={styles.button}>{(state == 3 ? "완료" : "다음")}</Text>
           </TouchableOpacity>
@@ -72,7 +105,7 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 95,
     marginLeft: 34,
-    fontFamily: 'Inter-SemiBold',
+    fontFamily: 'Inter-ExtraBold',
     fontSize: 45,
     color: "#1047AD",
   },
@@ -86,11 +119,11 @@ const styles = StyleSheet.create({
   mainContainer: {
     alignItems: "center",
     marginTop: 139,
-    height: 20
+    height: 370
   },
   questionText: {
     fontSize: 15,
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-SemiBold',
     color: "black",
   },
   completeText: {
@@ -109,11 +142,12 @@ const styles = StyleSheet.create({
   button: {
     color: "white",
     fontSize: 20,
-    fontFamily: 'Inter-SemiBold'
+    fontFamily: 'Inter-Bold'
   },
   genderButtonsContainer: {
+    justifyContent: "center",
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 85,
   },
   genderButton: {
     justifyContent: 'center',
@@ -128,6 +162,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#1047AD',
     color: 'white',
   },
+  ageText: {
+    textAlign: "right",
+    fontFamily: 'Inter-SemiBold',
+    fontSize: 15,
+    color: "black"
+  },
+  ageButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F2F2F2',
+    borderRadius: 5,
+    width: 100,
+    height: 50,
+    fontSize: 15
+  }
 });
 
 export default SignUp;
