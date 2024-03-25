@@ -7,7 +7,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoadingScreen from './src/screens/LoadingScreen';
-import SignUp from './src/screens/SignUp';
+import InputInfo from './src/screens/InputInfo';
 import Home from './src/screens/Home';
 
 const Stack = createNativeStackNavigator();
@@ -22,9 +22,9 @@ const App = () => {
           options={{headerShown: false}}   // 로딩 화면에는 헤더가 보이지 않도록 설정
         />
         <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{headerShown: false, tabBarStyle: {display: 'none'}}}   // SignUp 화면에도 헤더가 보이지 않도록 설정
+          name="InputInfo"
+          component={InputInfo}
+          options={{headerShown: false, tabBarStyle: {display: 'none'}}}   // InputInfo 화면에도 헤더가 보이지 않도록 설정
         />
         <Stack.Screen
           name="Home"

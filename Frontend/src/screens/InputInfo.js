@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const SignUp = () => {
+const InputInfo = () => {
   const [state, setState] = useState(0);   //0: 성별, 1: 나이, 2: 체격, 3: 완료
   const [gender, setGender] = useState('');
   const [textAge, setTextAge] = useState(0);
@@ -50,7 +50,7 @@ const SignUp = () => {
           <Text style={styles.completeText}>회원정보 입력이 {'\n'}완료되었습니다.</Text>
         </View>
       :
-        <View id="signUpQuestion" style={styles.mainContainer}>
+        <View id="inputInfoQuestion" style={styles.mainContainer}>
           {(state == 0 ?
             <View id="genderSection" style={{alignItems: "center"}}>
               <Text style={styles.questionText}>귀하의 성별을 입력해주세요</Text>
@@ -192,4 +192,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignUp;
+export default InputInfo;
