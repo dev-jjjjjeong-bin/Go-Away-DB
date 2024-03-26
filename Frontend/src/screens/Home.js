@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import BottomBar from '../components/BottomBar';
 
 const Home = ({ navigation }) => {
   // 각 박스 및 하단바의 아이콘을 눌렀을 때의 동작 추가
@@ -36,18 +37,7 @@ const Home = ({ navigation }) => {
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
       </TouchableOpacity>
-      {/* 하단 바(캘린더, 홈, 카메라) - 다른 페이지에 재사용하여 활용 */}
-      <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image source={require('../assets/images/CalendarIcon.png')} style={styles.UnderIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image source={require('../assets/images/HomeIcon.png')} style={styles.UnderIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image source={require('../assets/images/CameraIcon.png')} style={styles.UnderIcon} />
-        </TouchableOpacity>
-      </View>
+      <BottomBar />
     </View>
   );
 };
@@ -91,23 +81,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'SCDream4',
     color: "#707070",
-  },
-  bottomBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    width: '100%',
-    height: 60,
-    position: 'absolute',
-    bottom: 0,
-    borderTopWidth: 1,
-    borderColor: '#E7F4FF',
-  },
-  UnderIcon: {
-    width: 24,
-    height: 24,
-    resizeMode: 'contain',
   },
 });
 
