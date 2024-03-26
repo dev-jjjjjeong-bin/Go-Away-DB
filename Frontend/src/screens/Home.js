@@ -12,7 +12,7 @@ const Home = ({ navigation }) => {
       <TouchableOpacity style={styles.box}>
         <View style={styles.textBox}>
           <Text style={styles.boxText}>챌린지</Text>
-          <Text style={styles.descriptionText}>운동기구를 찍으면 해당 기기에 대한{'\n'}설명을 받을 수 있어요</Text>
+          <Text style={styles.descriptionText}>다양한 챌린지에 참여하고{'\n'}도장을 모아보세요</Text>
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
       </TouchableOpacity>
