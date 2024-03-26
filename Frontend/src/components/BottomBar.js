@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     height: 60,
     position: 'absolute',
     bottom: 0,
-    borderTopWidth: 1,
-    borderColor: '#E7F4FF',
+    borderTopWidth: 3,
+    borderColor: '#000',
   },
   iconButton: {
     padding: 10,
