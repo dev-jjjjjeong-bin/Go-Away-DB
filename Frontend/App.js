@@ -9,6 +9,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoadingScreen from './src/screens/LoadingScreen';
 import InputInfo from './src/screens/InputInfo';
 import Home from './src/screens/Home';
+import Challenge from './src/screens/Challenge';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,11 @@ const App = () => {
           name="Home"
           component={Home}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Challenge"
+          component={Challenge}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
