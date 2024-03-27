@@ -5,11 +5,13 @@ import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import BottomBar from '../components/BottomBar';
 
 const Home = ({ navigation }) => {
-  // 각 박스 및 하단바의 아이콘을 눌렀을 때의 동작 추가
+  const gotoChallengeScreen = () => {
+    navigation.navigate('Challenge');
+  };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.box}>
+      <TouchableOpacity style={styles.box} onPress={gotoChallengeScreen}>
         <View style={styles.textBox}>
           <Text style={styles.boxText}>챌린지</Text>
           <Text style={styles.descriptionText}>다양한 챌린지에 참여하고{'\n'}도장을 모아보세요</Text>

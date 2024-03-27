@@ -13,7 +13,7 @@ const LoadingScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/images/GymiusLogo.png')} style={styles.logo} />
+      <Image source={require('../assets/images/GymiusLogoWhite.png')} style={styles.logo} />
     </View>
   );
 };
