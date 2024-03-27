@@ -3,14 +3,15 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import BottomBar from '../components/BottomBar';
+import LogoLocation from '../components/LogoLocation';
 
 const Challenge = ({ navigation }) => {
   // 각 박스 및 하단바의 아이콘을 눌렀을 때의 동작 추가
 
   return (
     <SafeAreaView style={styles.fullContainer}>
-      <View style={styles.headerContainer}>
-        <Image source={require('../assets/images/GymiusLogoBlue.png')} style={styles.logo} />
+      <LogoLocation />
+      <View style={styles.header}>
         <Text style={styles.challengeText}>챌린지</Text>
       </View>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -55,20 +56,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  headerContainer: {
-    alignItems: 'center'
-  },
-  logo: {
-    width: 120,
-    height: 70,
-    marginLeft: -250,
-    resizeMode: 'contain',   // 이미지 비율 유지
+  header: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 10,
   },
   challengeText: {
     fontFamily: 'SCDream7',
-    fontSize: 36, 
+    fontSize: 36,
     color: 'black',
-    marginBottom: 10,
   },
   scrollViewContent: {
     alignItems: 'center',

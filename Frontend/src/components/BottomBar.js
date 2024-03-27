@@ -1,13 +1,19 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const BottomBar = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.bottomBar}>
       <TouchableOpacity style={styles.iconButton}>
         <Image source={require('../assets/images/CalendarIcon.png')} style={styles.icon} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.iconButton}>
+      <TouchableOpacity
+        style={styles.iconButton}
+        onPress={() => navigation.navigate('Home')}
+      >
         <Image source={require('../assets/images/HomeIcon.png')} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.iconButton}>
