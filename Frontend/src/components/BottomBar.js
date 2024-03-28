@@ -9,7 +9,10 @@ const BottomBar = () => {
 
   return (
     <View style={styles.bottomBar}>
-      <TouchableOpacity style={styles.iconButton}>
+      <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => navigation.navigate('Plan')}
+      >
         <Image source={require('../assets/images/CalendarIcon.png')} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity

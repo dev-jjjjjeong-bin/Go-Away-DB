@@ -22,7 +22,6 @@ const InputInfo = () => {
       setState((current) => (current + 1) % 4);
     }
     setState((state+1)%4);
-    console.log(state);
   };
   const handleGenderButtonPress = (selectedGender) => {
     setGender(selectedGender);

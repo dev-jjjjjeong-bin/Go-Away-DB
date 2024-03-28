@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { SafeAreaView, ScrollView, Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import BottomBar from '../components/BottomBar';
-import LogoLocation from '../components/LogoLocation';
+import BottomBar from '../components/BottomBar.js';
+import LogoLocation from '../components/LogoLocation.js';
 import ChallengeSuccessIcon from '../components/ChallengeSuccessIcon';
 
 const levelDescriptions = {
@@ -29,7 +29,7 @@ const Challenge = ({ navigation }) => {
 
             {/* 캘린더에서 조건 채우면 생성되는 성공 아이콘 */}
             {/* <ChallengeSuccessIcon /> */}
-            
+
             <View style={styles.textBox}>
               <Text style={styles.boxText}>{level}</Text>
               <Text style={styles.descriptionText}>{levelDescriptions[level]}</Text>
