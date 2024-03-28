@@ -4,6 +4,15 @@ import React from 'react';
 import { SafeAreaView, ScrollView, Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import BottomBar from '../components/BottomBar';
 import LogoLocation from '../components/LogoLocation';
+import ChallengeSuccessIcon from '../components/ChallengeSuccessIcon';
+
+const levelDescriptions = {
+  '초급1': '이번달 오늘의 계획을 \n5일 이상 세워보세요',
+  '초급2': '이번달 오늘의 계획 성공을 \n3번 이상 달성해보세요',
+  '중급1': '이번달 오늘의 계획을 \n10일 이상 세워보세요',
+  '중급2': '이번달 오늘의 계획 성공을 \n7번 이상 달성해보세요',
+  '고급': '이번달 오늘의 계획을 20일 이상 세우고, \n15번 이상 달성해보세요'
+};
 
 const Challenge = ({ navigation }) => {
   // 각 박스 및 하단바의 아이콘을 눌렀을 때의 동작 추가
@@ -15,36 +24,18 @@ const Challenge = ({ navigation }) => {
         <Text style={styles.challengeText}>챌린지</Text>
       </View>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <TouchableOpacity style={styles.box}>
-          <View style={styles.textBox}>
-            <Text style={styles.boxText}>초급1</Text>
-            <Text style={styles.descriptionText}>이번달 오늘의 계획을 5일 이상 세워보세요</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.box}>
-          <View style={styles.textBox}>
-            <Text style={styles.boxText}>초급2</Text>
-            <Text style={styles.descriptionText}>이번달 오늘의 계획 성공을 3번 이상 {'\n'}달성해보세요</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.box}>
-          <View style={styles.textBox}>
-            <Text style={styles.boxText}>중급1</Text>
-            <Text style={styles.descriptionText}>이번달 오늘의 계획을 10일 이상 {'\n'}세워보세요</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.box}>
-          <View style={styles.textBox}>
-            <Text style={styles.boxText}>중급2</Text>
-            <Text style={styles.descriptionText}>이번달 오늘의 계획 성공을 7번 이상 {'\n'}달성해보세요</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.box}>
-          <View style={styles.textBox}>
-            <Text style={styles.boxText}>고급</Text>
-            <Text style={styles.descriptionText}>이번달 오늘의 계획을 20일 이상 세우고, {'\n'}15번 이상 달성해보세요</Text>
-          </View>
-        </TouchableOpacity>
+        {Object.keys(levelDescriptions).map((level, index) => (
+          <TouchableOpacity key={level} style={styles.box}>
+
+            {/* 캘린더에서 조건 채우면 생성되는 성공 아이콘 */}
+            {/* <ChallengeSuccessIcon /> */}
+            
+            <View style={styles.textBox}>
+              <Text style={styles.boxText}>{level}</Text>
+              <Text style={styles.descriptionText}>{levelDescriptions[level]}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
       <BottomBar />
     </SafeAreaView>

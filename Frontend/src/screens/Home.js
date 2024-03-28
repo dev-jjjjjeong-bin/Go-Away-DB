@@ -8,6 +8,9 @@ const Home = ({ navigation }) => {
   const gotoChallengeScreen = () => {
     navigation.navigate('Challenge');
   };
+  const gotoCameraScreen =() => {
+    navigation.navigate('Camera');
+  };
 
   return (
     <View style={styles.container}>
@@ -18,7 +21,7 @@ const Home = ({ navigation }) => {
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.box}>
+      <TouchableOpacity style={styles.box} onPress={gotoCameraScreen}>
         <View style={styles.textBox}>
           <Text style={styles.boxText}>운동기구 설명</Text>
           <Text style={styles.descriptionText}>운동기구를 촬영하면 해당 기구에 대한{'\n'}설명을 볼 수 있어요</Text>
