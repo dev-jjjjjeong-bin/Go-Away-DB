@@ -10,6 +10,7 @@ import LoadingScreen from './src/screens/LoadingScreen';
 import InputInfo from './src/screens/InputInfo';
 import Home from './src/screens/Home';
 import Challenge from './src/screens/Challenge';
+import Camera from './src/screens/Camera';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ const App = () => {
         />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Challenge" component={Challenge} />
+        <Stack.Screen name="Camera" component={Camera} />
       </Stack.Navigator>
     </NavigationContainer>
   );
