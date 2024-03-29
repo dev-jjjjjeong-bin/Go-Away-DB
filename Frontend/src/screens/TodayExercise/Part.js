@@ -4,15 +4,11 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const Level = ({ navigation }) => {
+const Part = ({ navigation }) => {
   const [selection, setSelection] = useState('');
 
   const handleSelection = (option) => {
     setSelection(option);
-  };
-
-  const gotoPartScreen = () => {
-    navigation.navigate('Part');
   };
 
   return (
@@ -23,24 +19,34 @@ const Level = ({ navigation }) => {
       </View>
 
       <View id="options" style={styles.optionContainer}>
-        <Text style={styles.questionText}>운동의 난이도를 선택해주세요</Text>
+        <Text style={styles.questionText}>운동할 부위를 선택해주세요</Text>
         <TouchableOpacity
           style={[styles.optionButton, selection === 'option1' && styles.selectedOptionButton]}
           onPress={() => handleSelection('option1')}>
-          <Text style={[styles.optionText, selection === 'option1' && styles.selectedOptionText]}>초급(1부위, 2종목)</Text>
+          <Text style={[styles.optionText, selection === 'option1' && styles.selectedOptionText]}>어깨</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.optionButton, selection === 'option2' && styles.selectedOptionButton]}
           onPress={() => handleSelection('option2')}>
-          <Text style={[styles.optionText, selection === 'option2' && styles.selectedOptionText]}>중급(2부위, 2종목)</Text>
+          <Text style={[styles.optionText, selection === 'option2' && styles.selectedOptionText]}>등</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.optionButton, selection === 'option3' && styles.selectedOptionButton]}
           onPress={() => handleSelection('option3')}>
-          <Text style={[styles.optionText, selection === 'option3' && styles.selectedOptionText]}>고급(3부위, 3종목)</Text>
+          <Text style={[styles.optionText, selection === 'option3' && styles.selectedOptionText]}>가슴</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.optionButton, selection === 'option4' && styles.selectedOptionButton]}
+          onPress={() => handleSelection('option4')}>
+          <Text style={[styles.optionText, selection === 'option4' && styles.selectedOptionText]}>복부</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.optionButton, selection === 'option5' && styles.selectedOptionButton]}
+          onPress={() => handleSelection('option5')}>
+          <Text style={[styles.optionText, selection === 'option5' && styles.selectedOptionText]}>하체</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.nextButton} onPress={gotoPartScreen}>
+      <TouchableOpacity style={styles.nextButton}>
         <Text style={styles.nextButtonText}>다음</Text>
       </TouchableOpacity>
     </View>
@@ -115,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Level;
+export default Part;

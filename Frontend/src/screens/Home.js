@@ -40,8 +40,8 @@ const Home = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.box}>
         <View style={styles.textBox}>
-          <Text style={styles.boxText}>마이페이지</Text>
-          <Text style={styles.descriptionText}>가입 시 입력했던 회원님의 정보를 {'\n'}수정할 수 있어요</Text>
+          <Text style={styles.boxText}>캘린더 확인</Text>
+          <Text style={styles.descriptionText}>나의 운동 기록을 확인할 수 있어요</Text>
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
       </TouchableOpacity>
