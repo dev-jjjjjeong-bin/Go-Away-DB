@@ -14,6 +14,9 @@ const Home = ({ navigation }) => {
   const gotoLevelScreen = () => {
     navigation.navigate('Level');
   };
+  const gotoCalendarScreen = () => {
+    navigation.navigate('Plan');
+  };
 
   return (
     <View style={styles.container}>
@@ -38,9 +41,9 @@ const Home = ({ navigation }) => {
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.box}>
+      <TouchableOpacity style={styles.box} onPress={gotoCalendarScreen}>
         <View style={styles.textBox}>
-          <Text style={styles.boxText}>캘린더 확인</Text>
+          <Text style={styles.boxText}>운동 기록</Text>
           <Text style={styles.descriptionText}>나의 운동 기록을 확인할 수 있어요</Text>
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
