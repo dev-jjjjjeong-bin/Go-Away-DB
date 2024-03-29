@@ -2,8 +2,6 @@
 
 import React from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
-import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoadingScreen from './src/screens/LoadingScreen';
@@ -11,6 +9,7 @@ import InputInfo from './src/screens/InputInfo';
 import Home from './src/screens/Home';
 import Challenge from './src/screens/Challenge';
 import Camera from './src/screens/Camera';
+import Plan from './src/screens/Plan';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +32,11 @@ const App = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Challenge" component={Challenge} />
         <Stack.Screen name="Camera" component={Camera} />
+        <Stack.Screen
+            name="Plan"
+            component={Plan}
+            options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -2,8 +2,8 @@
 
 import React, { useEffect } from 'react';
 import { Image, StyleSheet, View, Text } from 'react-native';
-import BottomBar from '../components/BottomBar';
-import LogoLocation from '../components/LogoLocation';
+import BottomBar from '../components/BottomBar.js';
+import LogoLocation from '../components/LogoLocation.js';
 
 const Camera = ({ navigation }) => {
 
