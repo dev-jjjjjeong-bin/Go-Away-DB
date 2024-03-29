@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.box} onPress={() => {navigation.navigate('Plan')}}>
+      <TouchableOpacity style={styles.box}>
         <View style={styles.textBox}>
           <Text style={styles.boxText}>오늘의 운동</Text>
           <Text style={styles.descriptionText}>매일 운동 계획을 간편하게 자동으로{'\n'}세울 수 있어요</Text>
