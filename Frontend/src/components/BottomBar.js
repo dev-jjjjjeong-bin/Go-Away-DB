@@ -10,8 +10,8 @@ const BottomBar = () => {
   return (
     <View style={styles.bottomBar}>
       <TouchableOpacity
-          style={styles.iconButton}
-          onPress={() => navigation.navigate('Plan')}
+        style={styles.iconButton}
+        onPress={() => navigation.navigate('Plan')}
       >
         <Image source={require('../assets/images/CalendarIcon.png')} style={styles.icon} />
       </TouchableOpacity>
@@ -21,7 +21,10 @@ const BottomBar = () => {
       >
         <Image source={require('../assets/images/HomeIcon.png')} style={styles.icon} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.iconButton}>
+      <TouchableOpacity
+        style={styles.iconButton}
+        onPress={() => navigation.navigate('Camera')}
+      >
         <Image source={require('../assets/images/CameraIcon.png')} style={styles.icon} />
       </TouchableOpacity>
     </View>
