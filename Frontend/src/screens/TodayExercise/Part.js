@@ -1,14 +1,32 @@
 /* eslint-disable */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-const Part = ({ navigation }) => {
+const Part = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
   const [selection, setSelection] = useState('');
+  const [level, setLevel] = useState('');
+
+  useEffect(() => {
+    if (route.params?.level) {
+      setLevel(route.params.level);
+    }
+  }, [route.params]);
 
   const handleSelection = (option) => {
     setSelection(option);
+  };
+
+  const goToNextScreen = () => {
+    if (level === 'beginner' && selection === 'option1') { 
+      navigation.navigate('ShoulderBeginner');
+    }
+    else {
+      
+    }
   };
 
   return (
@@ -46,7 +64,7 @@ const Part = ({ navigation }) => {
           <Text style={[styles.optionText, selection === 'option5' && styles.selectedOptionText]}>하체</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.nextButton}>
+      <TouchableOpacity style={styles.nextButton} onPress={goToNextScreen}>
         <Text style={styles.nextButtonText}>다음</Text>
       </TouchableOpacity>
     </View>
@@ -60,7 +78,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    marginTop: 95,
+    marginTop: 50,
     marginLeft: 34,
     fontFamily: 'SCDream7',
     fontSize: 45,
@@ -75,7 +93,7 @@ const styles = StyleSheet.create({
   },
   questionText: {
     fontFamily: 'SCDream5',
-    fontSize: 18,
+    fontSize: 15,
     color: 'black',
     marginBottom: 50,
   },
@@ -96,12 +114,12 @@ const styles = StyleSheet.create({
   },
   selectedOptionText: {
     fontFamily: 'SCDream5',
-    fontSize: 20,
+    fontSize: 15,
     color: 'white',
   },
   optionText: {
     fontFamily: 'SCDream5',
-    fontSize: 20,
+    fontSize: 15,
     color: 'black',
   },
   nextButton: {
@@ -112,7 +130,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     alignSelf: 'center',
-    marginBottom: 30,
+    marginBottom: 100,
   },
   nextButtonText: {
     color: 'white',

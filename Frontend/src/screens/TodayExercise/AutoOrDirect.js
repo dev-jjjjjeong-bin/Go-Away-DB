@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    marginTop: 95,
+    marginTop: 50,
     marginLeft: 34,
     fontFamily: 'SCDream7',
     fontSize: 45,
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   },
   optionContainer: {
     alignItems: 'center',
+    marginTop: 10,
   },
   optionButton: {
     justifyContent: 'center',
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     alignSelf: 'center',
-    marginBottom: 30,
+    marginBottom: 100,
   },
   nextButtonText: {
     color: 'white',
