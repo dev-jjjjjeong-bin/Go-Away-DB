@@ -60,5 +60,51 @@ def register():
         })
 
 
+@app.route('/todo', methods=['GET'])
+def todo():
+    if request.method == 'GET':
+        query_date = request.args.get('date')
+
+        conn = sqlite3.connect('python.db')
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT content FROM todos WHERE date = ?", (query_date,))
+        todos = cursor.fetchall()
+
+        conn.close()
+
+        todos_list = [todo[0] for todo in todos]
+        return jsonify(todos_list)
+
+
+@app.route('/todo/complete', methods=['GET'])
+def todo_complete():
+    if request.method == 'GET':
+        query_date = request.args.get('date')
+
+        conn = sqlite3.connect('python.db')
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT id FROM todos WHERE date = ?", (query_date,))
+        todos_ids = cursor.fetchall()
+
+        if not todos_ids:
+            return jsonify({'error': 'No todos found for the specified date', 'isCompleted': False}), 404
+
+        all_completed = True
+        for todo_id in todos_ids:
+            cursor.execute("SELECT COUNT(*) FROM todo_contents WHERE todo_id = ? AND is_completed = 0", (todo_id[0],))
+            count_not_completed = cursor.fetchone()[0]
+            if count_not_completed > 0:
+                all_completed = False
+                break
+
+        conn.close()
+        return jsonify({'date': query_date, 'isCompleted': all_completed})
+
+
+# @app.route('/todo/add', method=['POST'])
+# def add_todo():
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8888, debug=True)
