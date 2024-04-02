@@ -11,8 +11,13 @@ const AutoOrDirect = ({ navigation }) => {
     setSelection(option);
   };
 
-  const gotoLevelScreen = () => {
-    navigation.navigate('Level');
+  const gotoNextScreen = () => {
+    if (selection === 'option1') {
+      navigation.navigate('Level');
+    }
+    else {
+
+    }
   };
 
   return (
@@ -21,7 +26,6 @@ const AutoOrDirect = ({ navigation }) => {
         <Text style={styles.title}>오늘의 운동</Text>
         <View style={styles.titleBar} />
       </View>
-
       <View id="options" style={styles.optionContainer}>
         <TouchableOpacity
           style={[styles.optionButton, selection === 'option1' && styles.selectedOptionButton]}
@@ -36,7 +40,7 @@ const AutoOrDirect = ({ navigation }) => {
           <Text style={[styles.optionText2, selection === 'option2' && styles.selectedOptionText2]}>직접 무슨 운동을 할 지 계획해요</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.nextButton} onPress={gotoLevelScreen}>
+      <TouchableOpacity style={styles.nextButton} onPress={gotoNextScreen}>
         <Text style={styles.nextButtonText}>다음</Text>
       </TouchableOpacity>
     </View>
