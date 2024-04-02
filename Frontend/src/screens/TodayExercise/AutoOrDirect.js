@@ -1,31 +1,22 @@
 /* eslint-disable */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-const Part = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
+const AutoOrDirect = ({ navigation }) => {
   const [selection, setSelection] = useState('');
-  const [level, setLevel] = useState('');
-
-  useEffect(() => {
-    if (route.params?.level) {
-      setLevel(route.params.level);
-    }
-  }, [route.params]);
 
   const handleSelection = (option) => {
     setSelection(option);
   };
 
-  const goToNextScreen = () => {
-    if (level === 'beginner' && selection === 'option1') { 
-      navigation.navigate('ShoulderBeginner');
+  const gotoNextScreen = () => {
+    if (selection === 'option1') {
+      navigation.navigate('Level');
     }
     else {
-      
+
     }
   };
 
@@ -36,34 +27,20 @@ const Part = () => {
         <View style={styles.titleBar} />
       </View>
       <View id="options" style={styles.optionContainer}>
-        <Text style={styles.questionText}>운동할 부위를 선택해주세요</Text>
         <TouchableOpacity
           style={[styles.optionButton, selection === 'option1' && styles.selectedOptionButton]}
           onPress={() => handleSelection('option1')}>
-          <Text style={[styles.optionText, selection === 'option1' && styles.selectedOptionText]}>어깨</Text>
+          <Text style={[styles.optionText1, selection === 'option1' && styles.selectedOptionText1]}>운동 계획 추천</Text>
+          <Text style={[styles.optionText2, selection === 'option1' && styles.selectedOptionText2]}>Gymius가 오늘의 운동을 추천해요</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.optionButton, selection === 'option2' && styles.selectedOptionButton]}
           onPress={() => handleSelection('option2')}>
-          <Text style={[styles.optionText, selection === 'option2' && styles.selectedOptionText]}>등</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.optionButton, selection === 'option3' && styles.selectedOptionButton]}
-          onPress={() => handleSelection('option3')}>
-          <Text style={[styles.optionText, selection === 'option3' && styles.selectedOptionText]}>가슴</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.optionButton, selection === 'option4' && styles.selectedOptionButton]}
-          onPress={() => handleSelection('option4')}>
-          <Text style={[styles.optionText, selection === 'option4' && styles.selectedOptionText]}>복부</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.optionButton, selection === 'option5' && styles.selectedOptionButton]}
-          onPress={() => handleSelection('option5')}>
-          <Text style={[styles.optionText, selection === 'option5' && styles.selectedOptionText]}>하체</Text>
+          <Text style={[styles.optionText1, selection === 'option2' && styles.selectedOptionText1]}>운동 직접 세우기</Text>
+          <Text style={[styles.optionText2, selection === 'option2' && styles.selectedOptionText2]}>직접 무슨 운동을 할 지 계획해요</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.nextButton} onPress={goToNextScreen}>
+      <TouchableOpacity style={styles.nextButton} onPress={gotoNextScreen}>
         <Text style={styles.nextButtonText}>다음</Text>
       </TouchableOpacity>
     </View>
@@ -90,20 +67,15 @@ const styles = StyleSheet.create({
     borderTopColor: '#8E8E8E',
     width: 49,
   },
-  questionText: {
-    fontFamily: 'SCDream5',
-    fontSize: 15,
-    color: 'black',
-    marginBottom: 50,
-  },
   optionContainer: {
     alignItems: 'center',
+    marginTop: 10,
   },
   optionButton: {
     justifyContent: 'center',
     alignItems: 'center',
     width: 291,
-    height: 50,
+    height: 150,
     backgroundColor: '#F2F2F2',
     borderRadius: 10,
     marginBottom: 16,
@@ -111,14 +83,25 @@ const styles = StyleSheet.create({
   selectedOptionButton: {
     backgroundColor: '#1047AD',
   },
-  selectedOptionText: {
+  selectedOptionText1: {
     fontFamily: 'SCDream5',
-    fontSize: 15,
+    fontSize: 20,
     color: 'white',
   },
-  optionText: {
+  selectedOptionText2: {
+    fontFamily: 'SCDream4',
+    fontSize: 10,
+    color: 'white',
+  },
+  optionText1: {
     fontFamily: 'SCDream5',
-    fontSize: 15,
+    fontSize: 20,
+    color: 'black',
+    marginBottom: 10,
+  },
+  optionText2: {
+    fontFamily: 'SCDream4',
+    fontSize: 10,
     color: 'black',
   },
   nextButton: {
@@ -138,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Part;
+export default AutoOrDirect;

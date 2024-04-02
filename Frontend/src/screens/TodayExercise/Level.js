@@ -12,7 +12,12 @@ const Level = ({ navigation }) => {
   };
 
   const gotoPartScreen = () => {
-    navigation.navigate('Part');
+    if (selection === 'option1') {
+      navigation.navigate('Part', { level: 'beginner' });
+    }
+    else {
+
+    }
   };
 
   return (
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    marginTop: 95,
+    marginTop: 50,
     marginLeft: 34,
     fontFamily: 'SCDream7',
     fontSize: 45,
@@ -68,7 +73,7 @@ const styles = StyleSheet.create({
   },
   questionText: {
     fontFamily: 'SCDream5',
-    fontSize: 18,
+    fontSize: 15,
     color: 'black',
     marginBottom: 50,
   },
@@ -89,12 +94,12 @@ const styles = StyleSheet.create({
   },
   selectedOptionText: {
     fontFamily: 'SCDream5',
-    fontSize: 20,
+    fontSize: 15,
     color: 'white',
   },
   optionText: {
     fontFamily: 'SCDream5',
-    fontSize: 20,
+    fontSize: 15,
     color: 'black',
   },
   nextButton: {
@@ -105,7 +110,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     alignSelf: 'center',
-    marginBottom: 30,
+    marginBottom: 100,
   },
   nextButtonText: {
     color: 'white',
