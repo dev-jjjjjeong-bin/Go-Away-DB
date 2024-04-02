@@ -10,6 +10,10 @@ import Home from './src/screens/Home';
 import Challenge from './src/screens/Challenge';
 import Camera from './src/screens/Camera';
 import Plan from './src/screens/Plan';
+import AutoOrDirect from './src/screens/TodayExercise/AutoOrDirect';
+import Level from './src/screens/TodayExercise/Level'
+import Part from './src/screens/TodayExercise/Part'
+import ShoulderBeginner from './src/screens/TodayExercise/ShoulderBeginner';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,11 +36,11 @@ const App = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Challenge" component={Challenge} />
         <Stack.Screen name="Camera" component={Camera} />
-        <Stack.Screen
-            name="Plan"
-            component={Plan}
-            options={{headerShown: false}}
-        />
+        <Stack.Screen name="Plan" component={Plan} />
+        <Stack.Screen name="AutoOrDirect" component={AutoOrDirect} />
+        <Stack.Screen name="Level" component={Level} />
+        <Stack.Screen name="Part" component={Part} />
+        <Stack.Screen name="ShoulderBeginner" component={ShoulderBeginner} />
       </Stack.Navigator>
     </NavigationContainer>
   );

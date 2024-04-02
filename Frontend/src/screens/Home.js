@@ -8,8 +8,14 @@ const Home = ({ navigation }) => {
   const gotoChallengeScreen = () => {
     navigation.navigate('Challenge');
   };
-  const gotoCameraScreen =() => {
+  const gotoCameraScreen = () => {
     navigation.navigate('Camera');
+  };
+  const gotoAutoOrDirectScreen = () => {
+    navigation.navigate('AutoOrDirect');
+  };
+  const gotoCalendarScreen = () => {
+    navigation.navigate('Plan');
   };
 
   return (
@@ -28,17 +34,17 @@ const Home = ({ navigation }) => {
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.box}>
+      <TouchableOpacity style={styles.box} onPress={gotoAutoOrDirectScreen}>
         <View style={styles.textBox}>
           <Text style={styles.boxText}>오늘의 운동</Text>
           <Text style={styles.descriptionText}>매일 운동 계획을 간편하게 자동으로{'\n'}세울 수 있어요</Text>
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.box}>
+      <TouchableOpacity style={styles.box} onPress={gotoCalendarScreen}>
         <View style={styles.textBox}>
-          <Text style={styles.boxText}>마이페이지</Text>
-          <Text style={styles.descriptionText}>가입 시 입력했던 회원님의 정보를 {'\n'}수정할 수 있어요</Text>
+          <Text style={styles.boxText}>운동 기록</Text>
+          <Text style={styles.descriptionText}>나의 운동 기록을 확인할 수 있어요</Text>
         </View>
         <Image source={require('../assets/images/ArrowIcon.png')} style={styles.arrow} />
       </TouchableOpacity>
