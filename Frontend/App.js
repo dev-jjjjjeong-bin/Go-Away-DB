@@ -13,7 +13,11 @@ import Plan from './src/screens/Plan';
 import AutoOrDirect from './src/screens/TodayExercise/AutoOrDirect';
 import Level from './src/screens/TodayExercise/Level'
 import Part from './src/screens/TodayExercise/Part'
-import ShoulderBeginner from './src/screens/TodayExercise/ShoulderBeginner';
+import ShoulderBeginner from './src/screens/TodayExercise/Beginner/ShoulderBeginner';
+import BackBeginner from './src/screens/TodayExercise/Beginner/BackBeginner';
+import ChestBeginner from './src/screens/TodayExercise/Beginner/ChestBeginner';
+import AbsBeginner from './src/screens/TodayExercise/Beginner/AbsBeginner';
+import LegBeginner from './src/screens/TodayExercise/Beginner/LegBeginner';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +45,10 @@ const App = () => {
         <Stack.Screen name="Level" component={Level} />
         <Stack.Screen name="Part" component={Part} />
         <Stack.Screen name="ShoulderBeginner" component={ShoulderBeginner} />
+        <Stack.Screen name="BackBeginner" component={BackBeginner} />
+        <Stack.Screen name="ChestBeginner" component={ChestBeginner} />
+        <Stack.Screen name="AbsBeginner" component={AbsBeginner} />
+        <Stack.Screen name="LegBeginner" component={LegBeginner} />
       </Stack.Navigator>
     </NavigationContainer>
   );

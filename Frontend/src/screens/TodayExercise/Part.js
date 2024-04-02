@@ -24,6 +24,18 @@ const Part = () => {
     if (level === 'beginner' && selection === 'option1') { 
       navigation.navigate('ShoulderBeginner');
     }
+    if (level === 'beginner' && selection == 'option2') {
+      navigation.navigate('BackBeginner');
+    }
+    if (level === 'beginner' && selection == 'option3') {
+      navigation.navigate('ChestBeginner');
+    }
+    if (level === 'beginner' && selection == 'option4') {
+      navigation.navigate('AbsBeginner');
+    }
+    if (level === 'beginner' && selection == 'option5') {
+      navigation.navigate('LegBeginner');
+    }
     else {
       
     }
