@@ -15,7 +15,6 @@ const levelDescriptions = {
 };
 
 const Challenge = ({ navigation }) => {
-  // 각 박스 및 하단바의 아이콘을 눌렀을 때의 동작 추가
 
   return (
     <SafeAreaView style={styles.fullContainer}>

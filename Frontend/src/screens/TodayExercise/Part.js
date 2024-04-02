@@ -35,7 +35,6 @@ const Part = () => {
         <Text style={styles.title}>오늘의 운동</Text>
         <View style={styles.titleBar} />
       </View>
-
       <View id="options" style={styles.optionContainer}>
         <Text style={styles.questionText}>운동할 부위를 선택해주세요</Text>
         <TouchableOpacity

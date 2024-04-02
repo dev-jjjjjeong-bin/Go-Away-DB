@@ -17,6 +17,9 @@ const Home = ({ navigation }) => {
   const gotoCalendarScreen = () => {
     navigation.navigate('Plan');
   };
+  const gotoCalendarScreen = () => {
+    navigation.navigate('Plan');
+  };
 
   return (
     <View style={styles.container}>
