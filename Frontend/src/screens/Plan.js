@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import React, {useEffect, useState} from 'react';
-import {Image, View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import {Image, View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, TextInput} from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 import BottomBar from "../components/BottomBar";
 
@@ -107,7 +107,11 @@ const Plan = ({ navigation }) => {
                 <View id="dayList" style={{paddingBottom:80}}>
                     {BodyParts.map(part => (
                         <View key={part}>
-                            <TouchableOpacity id="partListAddBtn" onPress={() => console.log(`${part} 추가하기 눌림`)} style={{marginBottom: 15}}>
+                            <TouchableOpacity
+                                id="partListAddBtn"
+                                onPress={() => handleInputBtn(part)}
+                                style={{marginBottom: 15}}
+                            >
                                 <View style={{flexDirection:"row", alignItems: 'center'}}>
                                     <View id="partName" style={styles.partContainer}>
                                         <Text style={styles.partText}>{part}</Text>
@@ -131,6 +135,22 @@ const Plan = ({ navigation }) => {
                                     <Text id="listText" style={{fontFamily:"SCDream4", fontSize: 18, color: 'black'}}>{list}</Text>
                                 </TouchableOpacity>
                             ))}
+                            {showTextInput[part] == true &&
+                                <View id="list Input" style={{flexDirection: "row", justifyContent: 'space-between'}}>
+                                    <TextInput
+                                        onChangeText={(text) => handleInputTxt(part, text)}
+                                        value={textInput[part]}
+                                        style={styles.textInput}
+                                    />
+                                    <View style={styles.arrowContainer}>
+                                        <Image
+                                            name="enterArrow"
+                                            source={require('../assets/images/AddArrow.png')}
+                                            style={{height:30, width:20}}
+                                        />
+                                    </View>
+                                </View>
+                            }
                         </View>
                     ))}
                 </View>
@@ -202,7 +222,20 @@ const styles = StyleSheet.create({
     },
     textInput: {
         height: 46,
-
+        backgroundColor: 'white',
+        width: '85%',
+        borderRadius: 10,
+        marginBottom: 15,
+        fontFamily: 'SCDream5',
+        fontSize: 16,
+    },
+    arrowContainer: {
+        height: 46,
+        width: 46,
+        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 10
     }
 });
 
