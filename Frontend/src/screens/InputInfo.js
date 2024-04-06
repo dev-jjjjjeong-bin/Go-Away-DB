@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import userInfo from "../UserInfo.json";
 
 const InputInfo = () => {
   const [state, setState] = useState(0);   // 0: 성별, 1: 나이, 2: 체격, 3: 완료
@@ -31,7 +32,13 @@ const InputInfo = () => {
       return;
     }
     if (state === 3) {
-      navigation.navigate('Home');
+      const updatedUserInfo = {...userInfo};
+      updatedUserInfo.gender = gender;
+      updatedUserInfo.age = parseInt(textAge);
+      updatedUserInfo.height = parseInt(textHeight);
+      updatedUserInfo.weight = parseInt(textWeight);
+      console.log(updatedUserInfo);
+      //navigation.navigate('Home');
     }
     else {
       setState((current) => (current + 1) % 4);
