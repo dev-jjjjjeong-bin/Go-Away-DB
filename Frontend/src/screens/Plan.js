@@ -1,7 +1,7 @@
 /* eslint-disable */
 
-import React, { useState } from 'react';
-import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Image, View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, TextInput} from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 import BottomBar from "../components/BottomBar";
 
@@ -16,97 +16,227 @@ LocaleConfig.locales.fr = {
 LocaleConfig.defaultLocale = 'fr';
 
 const Plan = ({ navigation }) => {
-  const [selectedDay, setSelectedDay] = useState('');
+    // 차후 백데이터로부터 연결
+    const [list, setList] = useState(["2024-04-04", "2024-04-25", "2024-04-16", "2024-05-01"]); // 예시
+    const [bodyTexts, setBodyTexts] = useState({
+        어깨: ["어깨1","어깨2"],
+        등: [],
+        가슴: ["가슴1"],
+        복부: [],
+        하체: ["하체1"]
+    });
+    const [markedDates, setMarkedDates] = useState({});
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.calendarContainer}>
-        <Calendar
-          style={styles.calendar}
-          monthFormat={'yyyy.MM'}
-          hideExtraDays={false}
-          onDayPress={day => {
-            setSelectedDay(day.dateString);
-          }}
-          markedDates={{
-            [selectedDay]: { selected: true, disableTouchEvent: true, selectedDotColor: '#1047AD' },
-          }}
-          theme={{
-            dayTextColor: '#8E8E8E',
-            backgroundColor: '#FFFFFF',
-            selectedDayBackgroundColor: '#1047AD',
-            selectedDayTextColor: '#FFFFFF',
-            textDayFontSize: 16,
-            textDayFontWeight: 'bold',
-            textMonthFontSize: 20,
-            textMonthFontWeight: 'bold',
-          }}
-          // 달이 바뀔 때 바뀐 달 출력
-          onMonthChange={(month) => { console.log(month) }}
-          // 달 이동 화살표 구현 왼쪽이면 왼쪽 화살표 이미지, 아니면 오른쪽 화살표 이미지
-          renderArrow={(direction) => direction === "left" ?
-            <Image name="left"
-              source={require('../assets/images/CalendarLeft.png')}
-              style={{ height: 14, width: 14 }}
-            /> :
-            <Image name="right"
-              source={require('../assets/images/CalendarRight.png')}
-              style={{ height: 14, width: 14 }}
-            />}
-        />
-      </View>
-      <View style={styles.plannerContainer}>
-        <Text style={styles.todayText}>5월 29일</Text>
-        <TouchableOpacity style={styles.plannerBtn}>
-          <Text style={styles.plannerTxt}>오늘의 운동 계획하기</Text>
-        </TouchableOpacity>
-      </View>
-      <BottomBar />
-    </View>
-  );
+    // 백데이터 연결할 필요 x, 프론트에서만 처리
+    const [selectedDay, setSelectedDay] = useState('');
+    const BodyParts = ['어깨', '등', '가슴', '복부', '하체'];
+    const [showTextInput, setShowTextInput] = useState({
+        어깨: false,
+        등: false,
+        가슴: false,
+        복부: false,
+        하체: false
+    });
+    const [textInput, setTextInput] = useState({
+        어깨: '',
+        등: '',
+        가슴: '',
+        복부: '',
+        하체: ''
+    });
+
+    const handleInputBtn = (part) => {
+        setShowTextInput(prevState => ({
+            ...prevState,
+            [part]: !prevState[part]
+        }));
+    };
+    const handleInputTxt = (part, inputText) => {
+        setTextInput(prevState => ({
+            ...prevState,
+            [part]: inputText
+        }))
+    }
+
+    useEffect(() => {
+        setMarkedDates(list.reduce((acc, current) => {
+            acc[current] = {selected: true, selectedColor: '#99CCFF', selectedTextColor:'#5B5B5B' };
+            return acc;
+        }, {}));
+    }, [list]);
+
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <View id="calendar" style={styles.calendarContainer}>
+                <Calendar
+                    style={styles.calendar}
+                    monthFormat = {'yyyy.MM'}
+                    hideExtraDays={true}
+                    onDayPress={day => {
+                        setSelectedDay(day.dateString);
+                    }}
+                    markedDates={{
+                        ...markedDates,
+                        [selectedDay]: {selected: true, disableTouchEvent: true, selectedColor: '#1047AD', textColor: 'white'}
+                    }}
+                    theme={{
+                        dayTextColor: '#5B5B5B',
+                        selectedDayBackgroundColor: '#1047AD',
+                        textDayFontSize: 16,
+                        textDayFontWeight: 'bold',
+                        textMonthFontSize: 20,
+                        textMonthFontWeight: 'bold',
+                    }}
+                    // 달이 바뀔 때 바뀐 달 출력
+                    onMonthChange={(month) => {console.log(month)}}
+                    // 달 이동 화살표 구현 왼쪽이면 왼쪽 화살표 이미지, 아니면 오른쪽 화살표 이미지
+                    renderArrow={(direction) => direction === "left" ?
+                        <Image name="left"
+                               source={require('../assets/images/CalendarLeft.png')}
+                               style={{height:14, width:14}}
+                        /> :
+                        <Image name="right"
+                               source={require('../assets/images/CalendarRight.png')}
+                               style={{height:14, width:14}}
+                        />}
+                />
+            </View>
+            <ScrollView style={styles.plannerContainer}>
+                <Text style={styles.todayText}>5월 29일</Text>
+                <View id="dayList" style={{paddingBottom:80}}>
+                    {BodyParts.map(part => (
+                        <View key={part}>
+                            <TouchableOpacity
+                                id="partListAddBtn"
+                                onPress={() => handleInputBtn(part)}
+                                style={{marginBottom: 15}}
+                            >
+                                <View style={{flexDirection:"row", alignItems: 'center'}}>
+                                    <View id="partName" style={styles.partContainer}>
+                                        <Text style={styles.partText}>{part}</Text>
+                                    </View>
+                                    <Text style={{fontFamily: 'SCDream6', fontSize: 15}}>추가하기 +</Text>
+                                </View>
+                            </TouchableOpacity>
+                            {bodyTexts[part].map((list, index) => (
+                                <TouchableOpacity
+                                    key={list}
+                                    style={styles.listContainer}
+                                    //onPress={() => handleBoxPress(part, index)}
+                                >
+                                    <View id="checkBox" style={[styles.checkBox,{backgroundColor: list ? 'white': '#1047AD'}]}>
+                                        <Image
+                                            name="checkBox"
+                                            source={require('../assets/images/Check.png')}
+                                            style={{height:14, width:16}}
+                                        />
+                                    </View>
+                                    <Text id="listText" style={{fontFamily:"SCDream4", fontSize: 18, color: 'black'}}>{list}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            {showTextInput[part] == true &&
+                                <View id="list Input" style={{flexDirection: "row", justifyContent: 'space-between'}}>
+                                    <TextInput
+                                        onChangeText={(text) => handleInputTxt(part, text)}
+                                        value={textInput[part]}
+                                        style={styles.textInput}
+                                    />
+                                    <View style={styles.arrowContainer}>
+                                        <Image
+                                            name="enterArrow"
+                                            source={require('../assets/images/AddArrow.png')}
+                                            style={{height:30, width:20}}
+                                        />
+                                    </View>
+                                </View>
+                            }
+                        </View>
+                    ))}
+                </View>
+            </ScrollView>
+            <BottomBar />
+        </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  calendarContainer: {
-    flex: 1,
-    marginTop: 30,
-    marginBottom: 20,
-    backgroundColor: '#FFFFFF',
-  },
-  calendar: {
-    paddingRight: 40,
-    paddingLeft: 40,
-  },
-  plannerContainer: {
-    flex: 1,
-    backgroundColor: '#EAEAEA',
-    height: 320,
-    paddingLeft: 25,
-    paddingRight: 25,
-    paddingTop: 20,
-  },
-  todayText: {
-    fontFamily: 'SCDream7',
-    fontSize: 15,
-    color: 'black'
-  },
-  plannerBtn: {
-    marginTop: 22,
-    backgroundColor: '#1047AD',
-    height: 50,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  plannerTxt: {
-    fontFamily: 'SCDream4',
-    fontSize: 16,
-    color: 'white',
-  }
+    container: {
+        flex:1,
+        backgroundColor: '#FFFFFF',
+    },
+    calendarContainer: {
+        flex:1,
+        marginTop: 30,
+        marginBottom: 20,
+        backgroundColor: '#FFFFFF',
+    },
+    calendar: {
+        paddingRight: 40,
+        paddingLeft: 40,
+    },
+    plannerContainer: {
+        flex:1,
+        backgroundColor: '#EAEAEA',
+        paddingHorizontal: 25,
+        paddingTop: 20,
+    },
+    todayText: {
+        fontFamily: 'SCDream7',
+        fontSize: 15,
+        color: 'black',
+        marginBottom: 10
+    },
+    partContainer: {
+        borderRadius: 10,
+        height: 28,
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#99CCFF',
+        marginRight: 10
+    },
+    partText: {
+        fontFamily: 'SCDream5',
+        fontSize: 16,
+        color: 'white'
+    },
+    listContainer: {
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        marginBottom: 15,
+        height: 46,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    checkBox: {
+        height:20,
+        width: 20,
+        borderWidth: 2,
+        borderColor: '#1047AD',
+        borderRadius: 3,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 24,
+        marginRight: 10,
+    },
+    textInput: {
+        height: 46,
+        backgroundColor: 'white',
+        width: '85%',
+        borderRadius: 10,
+        marginBottom: 15,
+        fontFamily: 'SCDream5',
+        fontSize: 16,
+    },
+    arrowContainer: {
+        height: 46,
+        width: 46,
+        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 10
+    }
 });
 
 export default Plan;
