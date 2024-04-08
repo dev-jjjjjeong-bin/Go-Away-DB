@@ -70,7 +70,7 @@ const LegBeginner = ({ navigation }) => {
       <View id="title">
         <Text style={styles.title}>오늘의 운동</Text>
         <View style={styles.titleBar} />
-        <Text style={styles.subtitle}>가슴(초급)</Text>
+        <Text style={styles.subtitle}>하체(초급)</Text>
       </View>
       <View id="options" style={styles.optionContainer}>
         <Text style={styles.questionText}>마음에 드는 운동 구성을 선택하세요</Text>

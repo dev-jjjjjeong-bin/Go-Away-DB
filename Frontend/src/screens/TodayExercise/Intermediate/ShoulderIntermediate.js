@@ -5,16 +5,16 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const exercises = [
-  '크런치(3 set)',
-  '러시안 트위스트(3 set)',
-  '플랭크(3 set)',
-  '레그 레이즈(3 set)',
-  '마운틴 클라이머(3 set)',
-  '바이시클 크런치(3 set)',
-  '사이드 플랭크(3 set)',
-  '리버스 크런치(3 set)',
-  '스위스 볼 크런치(3 set)',
-  '스위스 볼 러시안 트위스트(3 set)',
+  '업라이트 로우(5 set)',
+  '페이스 풀(5 set)',
+  '스미스 머신 프레스(5 set)',
+  '인클라인 덤벨 프레스(5 set)',
+  '벤트 오버 리버스 플라이(5 set)',
+  '케이블 프론트 레이즈(5 set)',
+  '플라이트 덤벨 프레스(5 set)',
+  '스탠딩 밀리터리 프레스(5 set)',
+  '랜드마인 프레스(5 set)',
+  '케틀벨 숄더 프레스(5 set)',
 ];
 
 const createPairs = (exercises) => {
@@ -27,7 +27,7 @@ const createPairs = (exercises) => {
   return pairs;
 };
 
-const AbsBeginner = ({ navigation }) => {
+const ShoulderIntermediate = ({ navigation }) => {
   const [selected, setSelected] = useState(null);
   const [allPairs, setAllPairs] = useState(createPairs(exercises));
   const [selectedPairs, setSelectedPairs] = useState([]);
@@ -70,7 +70,7 @@ const AbsBeginner = ({ navigation }) => {
       <View id="title">
         <Text style={styles.title}>오늘의 운동</Text>
         <View style={styles.titleBar} />
-        <Text style={styles.subtitle}>복부(초급)</Text>
+        <Text style={styles.subtitle}>어깨(중급)</Text>
       </View>
       <View id="options" style={styles.optionContainer}>
         <Text style={styles.questionText}>마음에 드는 운동 구성을 선택하세요</Text>
@@ -191,4 +191,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AbsBeginner;
+export default ShoulderIntermediate;

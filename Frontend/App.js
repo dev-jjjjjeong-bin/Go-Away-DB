@@ -11,13 +11,18 @@ import Challenge from './src/screens/Challenge';
 import Camera from './src/screens/Camera';
 import Plan from './src/screens/Plan';
 import AutoOrDirect from './src/screens/TodayExercise/AutoOrDirect';
-import Level from './src/screens/TodayExercise/Level'
-import Part from './src/screens/TodayExercise/Part'
+import Level from './src/screens/TodayExercise/Level';
+import Part from './src/screens/TodayExercise/Part';
 import ShoulderBeginner from './src/screens/TodayExercise/Beginner/ShoulderBeginner';
 import BackBeginner from './src/screens/TodayExercise/Beginner/BackBeginner';
 import ChestBeginner from './src/screens/TodayExercise/Beginner/ChestBeginner';
 import AbsBeginner from './src/screens/TodayExercise/Beginner/AbsBeginner';
 import LegBeginner from './src/screens/TodayExercise/Beginner/LegBeginner';
+import ShoulderIntermediate from './src/screens/TodayExercise/Intermediate/ShoulderIntermediate';
+import BackIntermediate from './src/screens/TodayExercise/Intermediate/BackIntermediate';
+import ChestIntermediate from './src/screens/TodayExercise/Intermediate/ChestIntermediate';
+import AbsIntermediate from './src/screens/TodayExercise/Intermediate/AbsIntermediate';
+import LegIntermediate from './src/screens/TodayExercise/Intermediate/LegIntermediate';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +54,11 @@ const App = () => {
         <Stack.Screen name="ChestBeginner" component={ChestBeginner} />
         <Stack.Screen name="AbsBeginner" component={AbsBeginner} />
         <Stack.Screen name="LegBeginner" component={LegBeginner} />
+        <Stack.Screen name="ShoulderIntermediate" component={ShoulderIntermediate} />
+        <Stack.Screen name="BackIntermediate" component={BackIntermediate} />
+        <Stack.Screen name="ChestIntermediate" component={ChestIntermediate} />
+        <Stack.Screen name="AbsIntermediate" component={AbsIntermediate} />
+        <Stack.Screen name="LegIntermediate" component={LegIntermediate} />
       </Stack.Navigator>
     </NavigationContainer>
   );

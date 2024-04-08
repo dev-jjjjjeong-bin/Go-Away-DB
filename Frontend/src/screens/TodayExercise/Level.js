@@ -15,6 +15,9 @@ const Level = ({ navigation }) => {
     if (selection === 'option1') {
       navigation.navigate('Part', { level: 'beginner' });
     }
+    else if (selection === 'option2') {
+      navigation.navigate('Part', { level: 'intermediate' });
+    }
     else {
 
     }
