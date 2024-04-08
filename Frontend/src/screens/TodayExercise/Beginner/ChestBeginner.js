@@ -17,53 +17,56 @@ const exercises = [
   '스미스 머신 프레스(3 set)',
 ];
 
-const createPairs = (exercises) => {
-  let pairs = [];
-  for (let i = 0; i < exercises.length; i++) {
-    for (let j = i + 1; j < exercises.length; j++) {
-      pairs.push(`${exercises[i]} \n ${exercises[j]}`);
+const createPairs = (exercises, existingPairs) => {
+  let pairGroups = [];
+  const stringifySet = set => [...set].sort().join(' \n ');
+
+  while (pairGroups.length < 3) {
+    let selected = [];
+    while (selected.length < 2) {
+      const index = Math.floor(Math.random() * exercises.length);
+      if (!selected.includes(exercises[index])) {
+        selected.push(exercises[index]);
+      }
+    }
+
+    // 새로운 운동 세트가 기존 세트와 중복되지 않는지 확인
+    const newSetString = stringifySet(selected);
+    if (!existingPairs.includes(newSetString)) {
+      pairGroups.push(newSetString);   // 중복되지 않는 경우에만 추가
+      existingPairs.push(newSetString);
     }
   }
-  return pairs;
+  return pairGroups;
 };
 
-const ChestBeginner = ({ navigation }) => {
+const ChestBeginner = () => {
   const [selected, setSelected] = useState(null);
-  const [allPairs, setAllPairs] = useState(createPairs(exercises));
   const [selectedPairs, setSelectedPairs] = useState([]);
+  const [existingPairs, setExistingPairs] = useState([]);
   const [recommendationIndex, setRecommendationIndex] = useState(1);
+
+  useEffect(() => {
+    const initialPairGroups = createPairs(exercises, existingPairs);
+    setSelectedPairs(initialPairGroups);
+    setExistingPairs(existingPairs.concat(initialPairGroups));
+  }, []);
 
   const handleSelection = (option) => {
     setSelected(option === selected ? null : option);
   };
 
-  // '운동 재추천 하기 (n/15)' 버튼을 눌렀을 때 실행되는 함수
   const handleRecommendation = () => {
-    if (recommendationIndex === 15) {
-      const newPairs = createPairs(exercises);
-      setAllPairs(newPairs);
-      setSelectedPairs(newPairs.slice(0, 3));
-      setSelected(null);
-      setRecommendationIndex(1);
-    }
-    else {
-      // 선택되지 않은 쌍(2개 묶음) 중에서 무작위로 3개를 선택
-      let remainingPairs = allPairs.filter((pair) => !selectedPairs.includes(pair));
-      let randomPairs = [];
-      for (let i = 0; i < 3; i++) {
-        let randomIndex = Math.floor(Math.random() * remainingPairs.length);
-        randomPairs.push(remainingPairs[randomIndex]);
-        remainingPairs.splice(randomIndex, 1);
-      }
-      setSelectedPairs(randomPairs);   // 화면에 보여질 새로운 운동 쌍 업데이트
-      setAllPairs([...remainingPairs, ...randomPairs]);   // 전체 목록 업데이트
+    if (recommendationIndex < 3) {
+      const newPairGroups = createPairs(exercises, existingPairs);
+      setSelectedPairs(newPairGroups);
+      setExistingPairs(existingPairs.concat(newPairGroups));
       setRecommendationIndex(recommendationIndex + 1);
     }
+    else {
+      alert('더 이상의 추천은 불가능합니다.');
+    }
   };
-
-  useEffect(() => {
-    setSelectedPairs(allPairs.slice(0, 3));
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -90,7 +93,7 @@ const ChestBeginner = ({ navigation }) => {
       <View id="recommend" style={styles.recommendContainer}>
         <Text style={styles.recommendText}>마음에 드는 운동 구성이 없나요?</Text>
         <TouchableOpacity style={styles.recommendButton} onPress={handleRecommendation}>
-          <Text style={styles.recommendButtonText}>운동 재추천 하기 ({recommendationIndex}/15)</Text>
+          <Text style={styles.recommendButtonText}>운동 재추천 하기 ({recommendationIndex}/3)</Text>
         </TouchableOpacity>
       </View>
     </View>
