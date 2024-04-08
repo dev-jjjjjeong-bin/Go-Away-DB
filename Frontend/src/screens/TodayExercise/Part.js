@@ -63,6 +63,19 @@ const Part = () => {
         default:
       }
     }
+    else if (level === 'advanced' && selectedOptions.length === 3) {
+      const priorityOrder = ['option1', 'option2', 'option3', 'option4', 'option5'];
+      const sortedOptions = selectedOptions.sort((a, b) => priorityOrder.indexOf(a) - priorityOrder.indexOf(b));
+      const nextPage = sortedOptions[0];
+      switch (nextPage) {
+        case 'option1': navigation.navigate('ShoulderAdvanced'); break;
+        case 'option2': navigation.navigate('BackAdvanced'); break;
+        case 'option3': navigation.navigate('ChestAdvanced'); break;
+        case 'option4': navigation.navigate('AbsAdvanced'); break;
+        case 'option5': navigation.navigate('LegAdvanced'); break;
+        default:
+      }
+    }
   };
 
   return (

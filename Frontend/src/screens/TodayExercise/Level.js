@@ -19,7 +19,7 @@ const Level = ({ navigation }) => {
       navigation.navigate('Part', { level: 'intermediate' });
     }
     else {
-
+      navigation.navigate('Part', { level: 'advanced' })
     }
   };
 

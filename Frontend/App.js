@@ -23,6 +23,11 @@ import BackIntermediate from './src/screens/TodayExercise/Intermediate/BackInter
 import ChestIntermediate from './src/screens/TodayExercise/Intermediate/ChestIntermediate';
 import AbsIntermediate from './src/screens/TodayExercise/Intermediate/AbsIntermediate';
 import LegIntermediate from './src/screens/TodayExercise/Intermediate/LegIntermediate';
+import ShoulderAdvanced from './src/screens/TodayExercise/Advanced/ShoulderAdvanced';
+import BackAdvanced from './src/screens/TodayExercise/Advanced/BackAdvanced';
+import ChestAdvanced from './src/screens/TodayExercise/Advanced/ChestAdvanced';
+import AbsAdvanced from './src/screens/TodayExercise/Advanced/AbsAdvanced';
+import LegAdvanced from './src/screens/TodayExercise/Advanced/LegAdvanced';
 
 const Stack = createNativeStackNavigator();
 
@@ -59,6 +64,11 @@ const App = () => {
         <Stack.Screen name="ChestIntermediate" component={ChestIntermediate} />
         <Stack.Screen name="AbsIntermediate" component={AbsIntermediate} />
         <Stack.Screen name="LegIntermediate" component={LegIntermediate} />
+        <Stack.Screen name="ShoulderAdvanced" component={ShoulderAdvanced} />
+        <Stack.Screen name="BackAdvanced" component={BackAdvanced} />
+        <Stack.Screen name="ChestAdvanced" component={ChestAdvanced} />
+        <Stack.Screen name="AbsAdvanced" component={AbsAdvanced} />
+        <Stack.Screen name="LegAdvanced" component={LegAdvanced} />
       </Stack.Navigator>
     </NavigationContainer>
   );
