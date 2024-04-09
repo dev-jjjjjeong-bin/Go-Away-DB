@@ -55,11 +55,11 @@ const Part = () => {
       const sortedOptions = selectedOptions.sort((a, b) => priorityOrder.indexOf(a) - priorityOrder.indexOf(b));
       const nextPage = sortedOptions[0];
       switch (nextPage) {
-        case 'option1': navigation.navigate('ShoulderIntermediate'); break;
-        case 'option2': navigation.navigate('BackIntermediate'); break;
-        case 'option3': navigation.navigate('ChestIntermediate'); break;
-        case 'option4': navigation.navigate('AbsIntermediate'); break;
-        case 'option5': navigation.navigate('LegIntermediate'); break;
+        case 'option1': navigation.navigate('ShoulderIntermediate', { selectedOptions: sortedOptions }); break;
+        case 'option2': navigation.navigate('BackIntermediate', { selectedOptions: sortedOptions }); break;
+        case 'option3': navigation.navigate('ChestIntermediate', { selectedOptions: sortedOptions }); break;
+        case 'option4': navigation.navigate('AbsIntermediate', { selectedOptions: sortedOptions }); break;
+        case 'option5': navigation.navigate('LegIntermediate', { selectedOptions: sortedOptions }); break;
         default:
       }
     }

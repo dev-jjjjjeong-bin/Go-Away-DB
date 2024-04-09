@@ -16,7 +16,7 @@ const AutoOrDirect = ({ navigation }) => {
       navigation.navigate('Level');
     }
     else {
-
+      navigation.navigate('Plan');
     }
   };
 
