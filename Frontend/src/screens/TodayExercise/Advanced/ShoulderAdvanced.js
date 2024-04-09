@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const exercises = [
   '덤벨 스내치(5 set)',
@@ -46,15 +46,19 @@ const createTriplets = (exercises, existingTriplets) => {
 };
 
 const ShoulderAdvanced = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
   const [selected, setSelected] = useState(null);
   const [selectedTriplets, setSelectedTriplets] = useState([]);
   const [existingTriplets, setExistingTriplets] = useState([]);
   const [recommendationIndex, setRecommendationIndex] = useState(1);
+  const [isLastSelection, setIsLastSelection] = useState(false);
 
   useEffect(() => {
-    const initialTripleGroups = createTriplets(exercises, existingTriplets);
-    setSelectedTriplets(initialTripleGroups);
-    setExistingTriplets(existingTriplets.concat(initialTripleGroups));
+    const selectedOptions = route.params?.selectedOptions ?? [];
+    setIsLastSelection(selectedOptions[selectedOptions.length - 1] === 'option1');
+    const initialTriplets = createTriplets(exercises, []);
+    setSelectedTriplets(initialTriplets);
   }, []);
 
   const handleSelection = (option) => {
@@ -70,6 +74,28 @@ const ShoulderAdvanced = () => {
     }
     else {
       alert('더 이상의 추천은 불가능합니다.');
+    }
+  };
+
+  const handleComplete = () => {
+    navigation.navigate('Plan');
+  };
+
+  const handleNext = () => {
+    if (!isLastSelection) {
+      const currentPageIndex = route.params.selectedOptions.indexOf('option1');
+      const nextPageOption = route.params.selectedOptions[currentPageIndex + 1];
+      let screenName = '';   // 실제 스크린 이름으로 변환 
+      switch (nextPageOption) {
+        case 'option1': screenName = 'ShoulderAdvanced'; break;
+        case 'option2': screenName = 'BackAdvanced'; break;
+        case 'option3': screenName = 'ChestAdvanced'; break;
+        case 'option4': screenName = 'AbsAdvanced'; break;
+        case 'option5': screenName = 'LegAdvanced'; break;
+      }
+      if (screenName) {
+        navigation.navigate(screenName, { selectedOptions: route.params.selectedOptions });
+      }
     }
   };
 
@@ -92,8 +118,8 @@ const ShoulderAdvanced = () => {
           </TouchableOpacity>
         ))}
       </View>
-      <TouchableOpacity style={styles.completeButton}>
-        <Text style={styles.completeButtonText}>완료</Text>
+      <TouchableOpacity style={styles.nextORcompleteButton} onPress={isLastSelection ? handleComplete : handleNext}>
+        <Text style={styles.nextORcompleteButtonText}>{isLastSelection ? '완료' : '다음'}</Text>
       </TouchableOpacity>
       <View id="recommend" style={styles.recommendContainer}>
         <Text style={styles.recommendText}>마음에 드는 운동 구성이 없나요?</Text>
@@ -166,7 +192,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center',
   },
-  completeButton: {
+  nextORcompleteButton: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#1047AD',
@@ -176,7 +202,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 30,
   },
-  completeButtonText: {
+  nextORcompleteButtonText: {
     color: 'white',
     fontSize: 20,
     fontFamily: 'SCDream6',
