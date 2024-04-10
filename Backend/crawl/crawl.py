@@ -4,14 +4,13 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
+import numpy as np
 import time
-from urllib.request import (urlopen, urlparse, urlunparse, urlretrieve)
 from tqdm import tqdm
 import time
 
 # 구글 이미지 url
 service = ChromeService(executable_path=ChromeDriverManager().install())
-base_url = "https://www.google.co.kr/imghp"
 
 # chrome_options = webdriver.ChromeOptions()
 # # chrome_options.add_argument('--headless') # 창 없는 모드
@@ -97,7 +96,7 @@ if input_elements:
     selenium_scroll_option()
 
 # 이미지 src 요소를 리스트업해서 이미지 URL 저장
-images = driver.find_elements(By.CSS_SELECTOR, ".rg_i.Q4LuWd")
+images = driver.find_elements(By.CSS_SELECTOR,".YQ4gaf")
 images_url = []
 for i in images:
     if i.get_attribute('src') != None:
@@ -117,12 +116,18 @@ if not os.path.exists(f'../images/{image_name}'):
     os.makedirs(f'../images/{image_name}')
 
 original_dir = os.getcwd()
+image_len = len(os.listdir(f"../images/{image_name}")) + 1
 os.chdir(f'../images/{image_name}')
 
-image_len = len(os.listdir(f"../images/{image_name}")) + 1
+cnt =0
 
 for t, url in enumerate(tqdm(images_url), 0):
-    urllib.request.urlretrieve(url, image_name + '_' + str(t) + '.jpg')
+    if "https://encrypted-tbn0.gstatic.com/images" in url:
+        urllib.request.urlretrieve(url, str(t) + '.jpg')
+        cnt += 1
+    else:
+        continue
 
 os.chdir(original_dir)
+print("유효한 이미지 수 :", cnt)
 print("Images are all saved")
