@@ -29,7 +29,8 @@ const Part = () => {
     let maxSelectable = level === 'beginner' ? 1 : (level === 'intermediate' ? 2 : 3);
     if (selectedOptions.includes(id)) {
       setSelectedOptions(selectedOptions.filter(option => option !== id));
-    } else {
+    }
+    else {
       if (selectedOptions.length < maxSelectable) {
         setSelectedOptions([...selectedOptions, id]);
       } else {
@@ -55,11 +56,11 @@ const Part = () => {
       const sortedOptions = selectedOptions.sort((a, b) => priorityOrder.indexOf(a) - priorityOrder.indexOf(b));
       const nextPage = sortedOptions[0];
       switch (nextPage) {
-        case 'option1': navigation.navigate('ShoulderIntermediate'); break;
-        case 'option2': navigation.navigate('BackIntermediate'); break;
-        case 'option3': navigation.navigate('ChestIntermediate'); break;
-        case 'option4': navigation.navigate('AbsIntermediate'); break;
-        case 'option5': navigation.navigate('LegIntermediate'); break;
+        case 'option1': navigation.navigate('ShoulderIntermediate', { selectedOptions: sortedOptions }); break;
+        case 'option2': navigation.navigate('BackIntermediate', { selectedOptions: sortedOptions }); break;
+        case 'option3': navigation.navigate('ChestIntermediate', { selectedOptions: sortedOptions }); break;
+        case 'option4': navigation.navigate('AbsIntermediate', { selectedOptions: sortedOptions }); break;
+        case 'option5': navigation.navigate('LegIntermediate', { selectedOptions: sortedOptions }); break;
         default:
       }
     }
@@ -68,11 +69,11 @@ const Part = () => {
       const sortedOptions = selectedOptions.sort((a, b) => priorityOrder.indexOf(a) - priorityOrder.indexOf(b));
       const nextPage = sortedOptions[0];
       switch (nextPage) {
-        case 'option1': navigation.navigate('ShoulderAdvanced'); break;
-        case 'option2': navigation.navigate('BackAdvanced'); break;
-        case 'option3': navigation.navigate('ChestAdvanced'); break;
-        case 'option4': navigation.navigate('AbsAdvanced'); break;
-        case 'option5': navigation.navigate('LegAdvanced'); break;
+        case 'option1': navigation.navigate('ShoulderAdvanced', { selectedOptions: sortedOptions }); break;
+        case 'option2': navigation.navigate('BackAdvanced', { selectedOptions: sortedOptions }); break;
+        case 'option3': navigation.navigate('ChestAdvanced', { selectedOptions: sortedOptions }); break;
+        case 'option4': navigation.navigate('AbsAdvanced', { selectedOptions: sortedOptions }); break;
+        case 'option5': navigation.navigate('LegAdvanced', { selectedOptions: sortedOptions }); break;
         default:
       }
     }
