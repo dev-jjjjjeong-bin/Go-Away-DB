@@ -73,10 +73,18 @@ const AbsIntermediate = () => {
   };
 
   const handleComplete = () => {
+    if (selected === null) {
+      alert('운동 구성을 선택해주세요.');
+      return;
+    }
     navigation.navigate('Plan');
   };
 
   const handleNext = () => {
+    if (selected === null) {
+      alert('운동 구성을 선택해주세요.');
+      return;
+    }
     if (!isLastSelection) {
       const currentPageIndex = route.params.selectedOptions.indexOf('option4');
       const nextPageOption = route.params.selectedOptions[currentPageIndex + 1];
