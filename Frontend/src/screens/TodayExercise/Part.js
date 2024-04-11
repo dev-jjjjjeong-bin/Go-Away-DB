@@ -40,6 +40,14 @@ const Part = () => {
   };
 
   const goToNextScreen = () => {
+    if (level === 'intermediate' && selectedOptions.length !== 2) {
+      alert('2가지의 운동 부위를 선택해야 합니다.');
+      return;
+    }
+    if (level === 'advanced' && selectedOptions.length != 3) {
+      alert('3가지의 운동 부위를 선택해야 합니다.');
+      return;
+    }
     if (level === 'beginner') {
       const selection = selectedOptions[0];
       switch (selection) {

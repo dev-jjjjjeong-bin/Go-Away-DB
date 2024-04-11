@@ -18,8 +18,11 @@ const Level = ({ navigation }) => {
     else if (selection === 'option2') {
       navigation.navigate('Part', { level: 'intermediate' });
     }
-    else {
+    else if (selection === 'option3') {
       navigation.navigate('Part', { level: 'advanced' })
+    }
+    else {
+      alert('운동의 난이도를 선택해주세요');
     }
   };
 

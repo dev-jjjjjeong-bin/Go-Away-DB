@@ -15,8 +15,11 @@ const AutoOrDirect = ({ navigation }) => {
     if (selection === 'option1') {
       navigation.navigate('Level');
     }
-    else {
+    else if (selection === 'option2') {
       navigation.navigate('Plan');
+    }
+    else {
+      alert('운동 계획을 추천받을지 직접 세울지\n선택해주세요');
     }
   };
 
