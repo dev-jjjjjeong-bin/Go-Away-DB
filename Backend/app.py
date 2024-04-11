@@ -103,7 +103,7 @@ def todo_complete():
         return jsonify({'date': query_date, 'isCompleted': all_completed})
 
 
-@app.route('/todo/add/<part>', method=['POST'])
+@app.route('/todo/add/<part>', methods=['POST'])
 def add_todo(part):
     if request.method == 'POST':
         conn = sqlite3.connect('python.db')
