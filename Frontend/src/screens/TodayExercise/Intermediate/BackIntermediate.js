@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const exercises = [
   'T-바 로우 (5 set)',
@@ -41,15 +41,19 @@ const createPairs = (exercises, existingPairs) => {
 };
 
 const BackIntermediate = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
   const [selected, setSelected] = useState(null);
   const [selectedPairs, setSelectedPairs] = useState([]);
   const [existingPairs, setExistingPairs] = useState([]);
   const [recommendationIndex, setRecommendationIndex] = useState(1);
+  const [isLastSelection, setIsLastSelection] = useState(false);
 
   useEffect(() => {
-    const initialPairGroups = createPairs(exercises, existingPairs);
-    setSelectedPairs(initialPairGroups);
-    setExistingPairs(existingPairs.concat(initialPairGroups));
+    const selectedOptions = route.params?.selectedOptions ?? [];
+    setIsLastSelection(selectedOptions[selectedOptions.length - 1] === 'option2');
+    const initialPairs = createPairs(exercises, []);
+    setSelectedPairs(initialPairs);
   }, []);
 
   const handleSelection = (option) => {
@@ -67,6 +71,29 @@ const BackIntermediate = () => {
       alert('더 이상의 추천은 불가능합니다.');
     }
   };
+
+  const handleComplete = () => {
+    navigation.navigate('Plan');
+  };
+
+  const handleNext = () => {
+    if (!isLastSelection) {
+      const currentPageIndex = route.params.selectedOptions.indexOf('option2');
+      const nextPageOption = route.params.selectedOptions[currentPageIndex + 1];
+      let screenName = '';   // 실제 스크린 이름으로 변환 
+      switch (nextPageOption) {
+        case 'option1': screenName = 'ShoulderIntermediate'; break;
+        case 'option2': screenName = 'BackIntermediate'; break;
+        case 'option3': screenName = 'ChestIntermediate'; break;
+        case 'option4': screenName = 'AbsIntermediate'; break;
+        case 'option5': screenName = 'LegIntermediate'; break;
+      }
+      if (screenName) {
+        navigation.navigate(screenName, { selectedOptions: route.params.selectedOptions });
+      }
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -87,8 +114,8 @@ const BackIntermediate = () => {
           </TouchableOpacity>
         ))}
       </View>
-      <TouchableOpacity style={styles.completeButton}>
-        <Text style={styles.completeButtonText}>완료</Text>
+      <TouchableOpacity style={styles.nextORcompleteButton} onPress={isLastSelection ? handleComplete : handleNext}>
+        <Text style={styles.nextORcompleteButtonText}>{isLastSelection ? '완료' : '다음'}</Text>
       </TouchableOpacity>
       <View id="recommend" style={styles.recommendContainer}>
         <Text style={styles.recommendText}>마음에 드는 운동 구성이 없나요?</Text>
@@ -161,7 +188,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center',
   },
-  completeButton: {
+  nextORcompleteButton: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#1047AD',
@@ -171,7 +198,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 30,
   },
-  completeButtonText: {
+  nextORcompleteButtonText: {
     color: 'white',
     fontSize: 20,
     fontFamily: 'SCDream6',
