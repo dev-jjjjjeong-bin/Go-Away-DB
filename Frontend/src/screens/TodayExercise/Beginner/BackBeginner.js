@@ -41,6 +41,7 @@ const createPairs = (exercises, existingPairs) => {
 };
 
 const BackBeginner = () => {
+  const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
   const [selectedPairs, setSelectedPairs] = useState([]);
   const [existingPairs, setExistingPairs] = useState([]);
@@ -68,6 +69,14 @@ const BackBeginner = () => {
     }
   };
 
+  const gotoNextScreen = () => {
+    if (selected === null) {
+      alert('운동 구성을 선택해주세요.');
+      return;
+    }
+    navigation.navigate('Plan');
+  }
+
   return (
     <View style={styles.container}>
       <View id="title">
@@ -87,7 +96,7 @@ const BackBeginner = () => {
           </TouchableOpacity>
         ))}
       </View>
-      <TouchableOpacity style={styles.completeButton}>
+      <TouchableOpacity style={styles.completeButton} onPress={gotoNextScreen}>
         <Text style={styles.completeButtonText}>완료</Text>
       </TouchableOpacity>
       <View id="recommend" style={styles.recommendContainer}>
