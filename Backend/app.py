@@ -103,8 +103,18 @@ def todo_complete():
         return jsonify({'date': query_date, 'isCompleted': all_completed})
 
 
-# @app.route('/todo/add', method=['POST'])
-# def add_todo():
+@app.route('/todo/add/<part>', method=['POST'])
+def add_todo(part):
+    if request.method == 'POST':
+        conn = sqlite3.connect('python.db')
+        cursor = conn.cursor()
+
+        if part in ["어깨", "등", "가슴", "복부", "하체"]:
+            cursor.execute("INSERT INTO todo_contents VALUES (?, ?, ?, ?)", ())
+            conn.commit()
+            conn.close()
+            return jsonify("")
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8888, debug=True)
