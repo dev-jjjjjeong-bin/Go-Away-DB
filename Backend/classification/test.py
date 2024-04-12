@@ -4,7 +4,6 @@ import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm
 from utils._utils import make_data_loader
-from model import BaseModel
 import torchvision
 import torch.nn as nn
 from sklearn.metrics import confusion_matrix, classification_report
