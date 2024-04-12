@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const InputInfo = () => {
   const [state, setState] = useState(0);   // 0: 성별, 1: 나이, 2: 체격, 3: 완료
@@ -17,7 +18,7 @@ const InputInfo = () => {
     setState((current) => (current - 1 + 4) % 4);
   };
 
-  const handleStateButtonPress = () => {
+  const handleStateButtonPress =  async () => {
     if (state === 0 && gender === '') {
       alert('성별을 선택해주세요.');
       return;
@@ -31,7 +32,24 @@ const InputInfo = () => {
       return;
     }
     if (state === 3) {
-      navigation.navigate('Home');
+      try {
+        await AsyncStorage.setItem('userInfo', JSON.stringify({
+          'age': textAge,
+          'gender': gender,
+          'height': textHeight,
+          'weight': textWeight
+        }));
+
+        // 로컬 저장소에 저장된 데이터 확인
+        await AsyncStorage.getItem('userInfo', (err,result) => {
+          const UserInfo = JSON.parse(result);
+          console.log(UserInfo);
+        })
+
+        navigation.navigate('Home');
+      } catch (error) {
+        console.log("Error saving data: ", error);
+      }
     }
     else {
       setState((current) => (current + 1) % 4);

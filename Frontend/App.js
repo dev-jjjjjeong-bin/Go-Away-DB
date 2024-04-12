@@ -11,9 +11,23 @@ import Challenge from './src/screens/Challenge';
 import Camera from './src/screens/Camera';
 import Plan from './src/screens/Plan';
 import AutoOrDirect from './src/screens/TodayExercise/AutoOrDirect';
-import Level from './src/screens/TodayExercise/Level'
-import Part from './src/screens/TodayExercise/Part'
-import ShoulderBeginner from './src/screens/TodayExercise/ShoulderBeginner';
+import Level from './src/screens/TodayExercise/Level';
+import Part from './src/screens/TodayExercise/Part';
+import ShoulderBeginner from './src/screens/TodayExercise/Beginner/ShoulderBeginner';
+import BackBeginner from './src/screens/TodayExercise/Beginner/BackBeginner';
+import ChestBeginner from './src/screens/TodayExercise/Beginner/ChestBeginner';
+import AbsBeginner from './src/screens/TodayExercise/Beginner/AbsBeginner';
+import LegBeginner from './src/screens/TodayExercise/Beginner/LegBeginner';
+import ShoulderIntermediate from './src/screens/TodayExercise/Intermediate/ShoulderIntermediate';
+import BackIntermediate from './src/screens/TodayExercise/Intermediate/BackIntermediate';
+import ChestIntermediate from './src/screens/TodayExercise/Intermediate/ChestIntermediate';
+import AbsIntermediate from './src/screens/TodayExercise/Intermediate/AbsIntermediate';
+import LegIntermediate from './src/screens/TodayExercise/Intermediate/LegIntermediate';
+import ShoulderAdvanced from './src/screens/TodayExercise/Advanced/ShoulderAdvanced';
+import BackAdvanced from './src/screens/TodayExercise/Advanced/BackAdvanced';
+import ChestAdvanced from './src/screens/TodayExercise/Advanced/ChestAdvanced';
+import AbsAdvanced from './src/screens/TodayExercise/Advanced/AbsAdvanced';
+import LegAdvanced from './src/screens/TodayExercise/Advanced/LegAdvanced';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +55,20 @@ const App = () => {
         <Stack.Screen name="Level" component={Level} />
         <Stack.Screen name="Part" component={Part} />
         <Stack.Screen name="ShoulderBeginner" component={ShoulderBeginner} />
+        <Stack.Screen name="BackBeginner" component={BackBeginner} />
+        <Stack.Screen name="ChestBeginner" component={ChestBeginner} />
+        <Stack.Screen name="AbsBeginner" component={AbsBeginner} />
+        <Stack.Screen name="LegBeginner" component={LegBeginner} />
+        <Stack.Screen name="ShoulderIntermediate" component={ShoulderIntermediate} />
+        <Stack.Screen name="BackIntermediate" component={BackIntermediate} />
+        <Stack.Screen name="ChestIntermediate" component={ChestIntermediate} />
+        <Stack.Screen name="AbsIntermediate" component={AbsIntermediate} />
+        <Stack.Screen name="LegIntermediate" component={LegIntermediate} />
+        <Stack.Screen name="ShoulderAdvanced" component={ShoulderAdvanced} />
+        <Stack.Screen name="BackAdvanced" component={BackAdvanced} />
+        <Stack.Screen name="ChestAdvanced" component={ChestAdvanced} />
+        <Stack.Screen name="AbsAdvanced" component={AbsAdvanced} />
+        <Stack.Screen name="LegAdvanced" component={LegAdvanced} />
       </Stack.Navigator>
     </NavigationContainer>
   );
