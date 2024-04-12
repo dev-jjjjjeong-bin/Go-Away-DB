@@ -3,3 +3,4 @@ images/
 .idea/
 venv/
 python.sqbpro
+classification/data/
