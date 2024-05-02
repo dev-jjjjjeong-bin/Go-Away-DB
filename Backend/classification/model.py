@@ -11,24 +11,28 @@ class BaseModel(nn.Module):
 
         # 추가적인 합성곱과 풀링 레이어를 적용
         self.enhanced_features = nn.Sequential(
-            nn.Conv2d(512, 512, kernel_size=3, padding=1),  # 예시 차원, 모델에 따라 조정 필요
+            nn.Conv2d(512, 1024, kernel_size=3, padding=1),  # 차원 증가 및 커널 조정
             nn.ReLU(inplace=True),
-            nn.BatchNorm2d(512),
+            nn.BatchNorm2d(1024),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(0.3)  # 약간의 드롭아웃 추가
+            nn.Conv2d(1024, 1024, kernel_size=3, padding=1),  # 더 많은 합성곱 레이어 추가
+            nn.ReLU(inplace=True),
+            nn.BatchNorm2d(1024),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(0.4)  # 드롭아웃 비율 조정
         )
 
         # 완전 연결 레이어를 확장
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(512 * 7 * 7, 1024),  # 차원은 적절히 조정 필요
+            nn.Linear(1024 * 3 * 3, 2048),  # 차원과 레이어 수 증가
             nn.ReLU(inplace=True),
-            nn.Dropout(0.5),
-            nn.Linear(1024, 512),
+            nn.Dropout(0.6),
+            nn.Linear(2048, 1024),
             nn.ReLU(inplace=True),
-            nn.Dropout(0.5),
-            nn.Linear(512, num_classes),
-            nn.Sigmoid()  # 이진 분류의 경우 Sigmoid, 다중 분류의 경우 Softmax를 사용합니다.
+            nn.Dropout(0.6),
+            nn.Linear(1024, num_classes),
+            nn.Sigmoid()
         )
 
         # 기존 모델의 일부 레이어 동결
