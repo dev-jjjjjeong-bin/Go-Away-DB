@@ -1,4 +1,4 @@
-#
+# 일단 사용 x
 import argparse
 import os
 import numpy as np
@@ -10,6 +10,8 @@ import torch.nn as nn
 import torchvision
 from datetime import datetime
 import matplotlib.pyplot as plt
+import torch.nn.functional as F
+
 
 now = datetime.now()
 model_name = now.strftime("%m%d%H%M%S")
@@ -94,15 +96,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     args.device = device
-    num_classes = 10
-    """
-    TODO: You can change the hyperparameters as you wish.
-            (e.g. change epochs etc.)
-    """
+    num_classes = 5
+
     # hyperparameters
-    args.epochs = 50
-    args.learning_rate = 0.001
-    args.batch_size = 16
+    args.epochs = 30
+    args.learning_rate = 0.01
+    args.batch_size = 30
     # check settings
     print("==============================")
     print("Save path:", args.save_path)
@@ -119,7 +118,6 @@ if __name__ == '__main__':
     # model = BaseModel()
     # torchvision model
     model = torchvision.models.efficientnet_b3(torchvision.models.EfficientNet_B3_Weights.IMAGENET1K_V1)
-    # you have to change num_classes to 10
     num_features = model.classifier[1].in_features
     model.classifier[1] = nn.Linear(num_features, num_classes)
     model.to(device)

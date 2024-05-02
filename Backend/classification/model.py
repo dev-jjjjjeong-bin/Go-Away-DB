@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 from torchvision import models
 
-
 class BaseModel(nn.Module):
     def __init__(self, num_classes, original_model):
         super(BaseModel, self).__init__()
@@ -11,21 +10,21 @@ class BaseModel(nn.Module):
 
         # 추가적인 합성곱과 풀링 레이어를 적용
         self.enhanced_features = nn.Sequential(
-            nn.Conv2d(512, 1024, kernel_size=3, padding=1),  # 차원 증가 및 커널 조정
+            nn.Conv2d(512, 1024, kernel_size=3, padding=1, dilation=2),  # Dilated Convolution 적용
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(1024),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Conv2d(1024, 1024, kernel_size=3, padding=1),  # 더 많은 합성곱 레이어 추가
+            nn.Conv2d(1024, 1024, kernel_size=3, padding=1),
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(1024),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(0.4)  # 드롭아웃 비율 조정
+            nn.Dropout(0.4)
         )
 
         # 완전 연결 레이어를 확장
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(1024 * 3 * 3, 2048),  # 차원과 레이어 수 증가
+            nn.Linear(1024 * 3 * 3, 2048),
             nn.ReLU(inplace=True),
             nn.Dropout(0.6),
             nn.Linear(2048, 1024),
@@ -45,6 +44,6 @@ class BaseModel(nn.Module):
 
     def forward(self, x):
         x = self.features(x)
-        x = self.enhanced_features(x)  # 추가된 합성곱 레이어를 통과
+        x = self.enhanced_features(x)
         x = self.classifier(x)
         return x
