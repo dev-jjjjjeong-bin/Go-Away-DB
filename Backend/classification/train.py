@@ -1,4 +1,3 @@
-# 일단 사용 x
 import argparse
 import os
 import numpy as np
