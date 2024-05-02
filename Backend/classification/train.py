@@ -35,57 +35,77 @@ def acc(pred, label):
     return torch.sum(pred == label).item()
 
 
-def train(args, data_loader, model):
-    """
-    TODO: Change the training code as you need. (e.g. different optimizer, different loss function, etc.)
-            You can add validation code. -> This will increase the accuracy.
-    """
+def validate(args, data_loader, model):
+    criterion = nn.CrossEntropyLoss()
+    model.eval()
+    val_losses = []
+    val_correct = 0
+    val_total = 0
+
+    with torch.no_grad():
+        for images, labels in data_loader:
+            images, labels = images.to(args.device), labels.to(args.device)
+
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+            val_losses.append(loss.item())
+
+            _, predicted = torch.max(outputs, 1)
+            val_total += labels.size(0)
+            val_correct += (predicted == labels).sum().item()
+
+    val_loss = np.mean(val_losses)
+    val_accuracy = val_correct / val_total
+    return val_loss, val_accuracy
+
+
+def train(args, train_loader, validation_loader, model):
     tmp = 0
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=args.learning_rate)
-    losses = []
-    accuracies = []
+    train_losses = []
+    val_losses = []
+    train_accuracies = []
+    val_accuracies = []
 
     for epoch in range(args.epochs):
-        train_losses = []
-        train_acc = 0.0
-        total = 0
-        print(f"[Epoch {epoch + 1} / {args.epochs}]")
+        train_loss = 0.0
+        train_correct = 0
+        train_total = 0
 
         model.train()
-        pbar = tqdm(data_loader)
-        for i, (x, y) in enumerate(pbar):
-            image = x.to(args.device)
-            label = y.to(args.device)
+        for images, labels in train_loader:
+            images, labels = images.to(args.device), labels.to(args.device)
             optimizer.zero_grad()
 
-            output = model(image)
-
-            label = label.squeeze()
-            loss = criterion(output, label)
+            outputs = model(images)
+            loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
 
-            train_losses.append(loss.item())
-            total += label.size(0)
+            train_loss += loss.item()
+            _, predicted = torch.max(outputs, 1)
+            train_total += labels.size(0)
+            train_correct += (predicted == labels).sum().item()
 
-            train_acc += acc(output, label)
+        train_losses.append(train_loss / len(train_loader))
+        train_accuracy = train_correct / train_total
+        train_accuracies.append(train_accuracy)
 
-        epoch_train_loss = np.mean(train_losses)
-        epoch_train_acc = train_acc / total
-        losses.append(epoch_train_loss)
-        accuracies.append(epoch_train_acc)
+        val_loss, val_accuracy = validate(args, validation_loader, model)
+        val_losses.append(val_loss)
+        val_accuracies.append(val_accuracy)
 
-        print(f'Epoch {epoch + 1}')
-        print(f'train_loss : {epoch_train_loss}')
-        print('train_accuracy : {:.3f}'.format(epoch_train_acc * 100))
+        print(f'Epoch [{epoch + 1}/{args.epochs}], Train Loss: {train_losses[-1]:.4f}, Train Accuracy: {train_accuracy:.4f}, Validation Loss: {val_loss:.4f}, Validation Accuracy: {val_accuracy:.4f}')
 
-        if tmp < epoch_train_acc:
+        if tmp < val_accuracy:
             torch.save(model.state_dict(), f'{args.save_path}/{model_name}.pth')
             print("save_checkpoint")
-            tmp = epoch_train_acc
+            tmp = val_accuracy
 
-    plot_loss_accuracy(losses, accuracies)
+    plot_loss_accuracy(train_losses, val_losses, train_accuracies, val_accuracies)
+
+
 
 
 if __name__ == '__main__':
@@ -112,7 +132,7 @@ if __name__ == '__main__':
     print("Epochs:", args.epochs)
     print("==============================")
     # Make Data loader and Model
-    train_loader, _ = make_data_loader(args)
+    train_loader, validation_loader = make_data_loader(args)
     # custom model
     # model = BaseModel()
     # torchvision model
@@ -122,4 +142,4 @@ if __name__ == '__main__':
     model.to(device)
     print(model)
     # Training The Model
-    train(args, train_loader, model)
+    train(args, train_loader, validation_loader, model)
