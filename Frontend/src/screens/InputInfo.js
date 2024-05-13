@@ -220,7 +220,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 100,
     height: 50,
-    fontSize: 15
+    fontSize: 15,
+    color: 'black'
   }
 });
 
