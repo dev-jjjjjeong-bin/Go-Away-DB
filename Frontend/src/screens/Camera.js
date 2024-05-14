@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Image, TouchableOpacity, StyleSheet, View, Text, ImageURISource } from 'react-native';
 import BottomBar from '../components/BottomBar.js';
 import LogoLocation from '../components/LogoLocation.js';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const Camera = ({ navigation }) => {
   const UploadImage = async () => {
