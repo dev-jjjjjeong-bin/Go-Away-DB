@@ -12,6 +12,11 @@ const Level = ({ navigation }) => {
   };
 
   const gotoPartScreen = () => {
+    console.log(selection);
+    if (selection === '') {
+      alert('운동의 난이도를 선택해주세요');
+      return;
+    }
     if (selection === 'option1') {
       navigation.navigate('Part', { level: 'beginner' });
     }

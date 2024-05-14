@@ -16,6 +16,27 @@ LocaleConfig.locales.fr = {
 LocaleConfig.defaultLocale = 'fr';
 
 const Plan = ({ navigation }) => {
+    const data = {
+        "date": "2024-05-01",
+        "is_completed": 0,
+        "exercise": 'Exercise 566',
+        "part": 'belly'
+    }
+
+    fetch('http://43.201.96.95:80/todo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(data => {
+      console.log('SUCCESS :',data);
+    })
+    .catch(error => {
+      console.error('ERROR : ', error);
+    });
+
     // 차후 백데이터로부터 연결
     const [list, setList] = useState(["2024-04-04", "2024-04-25", "2024-04-16", "2024-05-01"]); // 예시
     const [bodyTexts, setBodyTexts] = useState({
@@ -102,6 +123,7 @@ const Plan = ({ navigation }) => {
                         />}
                 />
             </View>
+
             <ScrollView style={styles.plannerContainer}>
                 <Text style={styles.todayText}>5월 29일</Text>
                 <View id="dayList" style={{paddingBottom:80}}>
@@ -116,7 +138,7 @@ const Plan = ({ navigation }) => {
                                     <View id="partName" style={styles.partContainer}>
                                         <Text style={styles.partText}>{part}</Text>
                                     </View>
-                                    <Text style={{fontFamily: 'SCDream6', fontSize: 15}}>추가하기 +</Text>
+                                    <Text style={{fontFamily: 'SCDream6', fontSize: 15, color:'#5B5B5B'}}>추가하기 +</Text>
                                 </View>
                             </TouchableOpacity>
                             {bodyTexts[part].map((list, index) => (
