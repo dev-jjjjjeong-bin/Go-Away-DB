@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {Image, View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, TextInput} from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 import BottomBar from "../components/BottomBar";
-
+//import RNFetchBlob from 'rn-fetch-blob';
 
 LocaleConfig.locales.fr = {
   monthNames: ['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'],
@@ -16,28 +16,27 @@ LocaleConfig.locales.fr = {
 LocaleConfig.defaultLocale = 'fr';
 
 const Plan = ({ navigation }) => {
-    /*
-    const data = {
-        "date": "2024-05-01",
-        "is_completed": 0,
-        "exercise": 'Exercise 566',
-        "part": '어깨'
-    }
+//    const data = {
+//        "date": "2024-05-01",
+//        "is_completed": 0,
+//        "exercise": 'Exercise 566',
+//        "part": '어깨'
+//    }
+//
+//    fetch('http://52.79.95.216:8080/calender', {
+//      method: 'POST',
+//      headers: {
+//        'Content-Type': 'application/json',
+//      },
+//      body: JSON.stringify(data),
+//    })
+//    .then(data => {
+//      console.log('SUCCESS :',data);
+//    })
+//    .catch(error => {
+//      console.error('ERROR : ', error);
+//    });
 
-    fetch('http://43.201.96.95:80/todo', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    .then(data => {
-      console.log('SUCCESS :',data);
-    })
-    .catch(error => {
-      console.error('ERROR : ', error);
-    });
-*/
     const [bodyTexts, setBodyTexts] = useState({
         어깨: ["어깨1","어깨2"],
         등: [],
@@ -49,7 +48,18 @@ const Plan = ({ navigation }) => {
     const [plannedDates, setPlannedDates] = useState({});
     const monthPlanDay = async (month) => {
       try {
-        const response = await fetch(`http://43.201.96.95/calender?month=${month}`);
+        const response = await fetch(`http://52.79.95.216:8080/calender?month=${month}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        console.log("response::",response);
         const data = await response.json();
 
         setPlannedDates(Object.keys(data).reduce((acc, current) => {
@@ -71,14 +81,15 @@ const Plan = ({ navigation }) => {
 
     const handleMonthChange = (month) => {
       const newMonth = month.month;
+      console.log("neow~:",newMonth);
       monthPlanDay(newMonth);
     };
 
     useEffect(() => {
       const currentMonth = new Date().getMonth() + 1;
+      console.log("currentMonth:", currentMonth);
       monthPlanDay(currentMonth);
     }, []);
-
 
     // 백데이터 연결할 필요 x, 프론트에서만 처리
     const [selectedDay, setSelectedDay] = useState('');

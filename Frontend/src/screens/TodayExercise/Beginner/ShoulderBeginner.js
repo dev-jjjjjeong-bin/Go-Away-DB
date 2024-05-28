@@ -16,6 +16,7 @@ const exercises = [
   '덤벨 숄더 쉬러그 (3 set)',
   '원 암 케이블 레터럴 레이즈 (3 set)',
 ];
+const today = new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate();
 
 const createPairs = (exercises, existingPairs) => {
   let pairGroups = [];
@@ -69,11 +70,22 @@ const ShoulderBeginner = () => {
     }
   };
 
+  const uploadList = async (selected) => {
+    const listData = {
+      "date" : today,
+      "part" : "어깨",
+      "exercise" : selected
+    }
+
+    console.log(listData);
+  }
+
   const gotoNextScreen = () => {
     if (selected === null) {
       alert('운동 구성을 선택해주세요.');
       return;
     }
+    uploadList(selected);
     navigation.navigate('Plan');
   }
 

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const exercises = [
   '웨이티드 딥스(5 set)',
@@ -22,9 +23,10 @@ const exercises = [
   '인버티드 푸시업(5 set)',
 ];
 
+const stringifySet = (set) => [...set].sort().join(' \n ');
+
 const createTriplets = (exercises, existingTriplets) => {
   let tripleGroups = [];
-  const stringifySet = set => [...set].sort().join(' \n ');
 
   while (tripleGroups.length < 3) {
     let selected = [];
@@ -59,6 +61,7 @@ const ChestAdvanced = () => {
     setIsLastSelection(selectedOptions[selectedOptions.length - 1] === 'option3');
     const initialTriplets = createTriplets(exercises, []);
     setSelectedTriplets(initialTriplets);
+    setExistingTriplets(initialTriplets);
   }, []);
 
   const handleSelection = (option) => {
@@ -71,8 +74,7 @@ const ChestAdvanced = () => {
       setSelectedTriplets(newTripleGroups);
       setExistingTriplets(existingTriplets.concat(newTripleGroups));
       setRecommendationIndex(recommendationIndex + 1);
-    }
-    else {
+    } else {
       alert('더 이상의 추천은 불가능합니다.');
     }
   };
@@ -93,7 +95,7 @@ const ChestAdvanced = () => {
     if (!isLastSelection) {
       const currentPageIndex = route.params.selectedOptions.indexOf('option3');
       const nextPageOption = route.params.selectedOptions[currentPageIndex + 1];
-      let screenName = '';   // 실제 스크린 이름으로 변환 
+      let screenName = '';   // 실제 스크린 이름으로 변환
       switch (nextPageOption) {
         case 'option1': screenName = 'ShoulderAdvanced'; break;
         case 'option2': screenName = 'BackAdvanced'; break;
@@ -214,17 +216,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontFamily: 'SCDream6',
-  },
-  recommendContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 25,
-  },
-  recommendText: {
-    color: '#C2BFBF',
-    fontSize: 12,
-    fontFamily: 'SCDream6',
-    marginTop: -5,
   },
   recommendButtonText: {
     color: '#1047AD',

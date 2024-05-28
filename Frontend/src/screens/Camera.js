@@ -11,7 +11,7 @@ const Camera = ({ navigation }) => {
     let image = null;
 
     await launchImageLibrary({ mediaType: 'photo' }, (response) => {
-      if (response.didCancel) {
+      if (response.dNidCancel) {
         console.log("User cancelled image picker");
       } else if (response.errorCode) {
         console.log("ImagePicker ERROR :", response.errorCode);
@@ -30,7 +30,7 @@ const Camera = ({ navigation }) => {
     });
 
     try {
-      const response = await fetch('http://43.201.96.95:80/search', {
+      const response = await fetch('http://52.79.95.216:8080/search', {
         method: 'POST',
         body: formData,
         headers: {
@@ -52,7 +52,9 @@ const Camera = ({ navigation }) => {
       <LogoLocation />
       <View style={styles.contentContainer}>
         <Text style={styles.text}>카메라 영역에 운동기구가 {'\n'}잘리지 않도록 촬영해주세요</Text>
-        <TouchableOpacity style={styles.greyBox} onPress={UploadImage}>
+        <TouchableOpacity style={styles.greyBox}
+         onPress={UploadImage}
+         >
           <Image source={require('../assets/images/CameraIcon.png')} style={styles.icon} />
           <Text style={styles.buttonText}>촬영하기</Text>
         </TouchableOpacity>

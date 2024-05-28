@@ -74,7 +74,8 @@ const LegBeginner = () => {
       alert('운동 구성을 선택해주세요.');
       return;
     }
-    navigation.navigate('Plan');
+    console.log(selected);
+    //navigation.navigate('Plan');
   }
   
   return (
