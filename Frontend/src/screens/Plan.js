@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {Image, View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, TextInput} from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 import BottomBar from "../components/BottomBar";
-
+//import RNFetchBlob from 'rn-fetch-blob';
 
 LocaleConfig.locales.fr = {
   monthNames: ['01월', '02월', '03월', '04월', '05월', '06월', '07월', '08월', '09월', '10월', '11월', '12월'],
@@ -16,29 +16,27 @@ LocaleConfig.locales.fr = {
 LocaleConfig.defaultLocale = 'fr';
 
 const Plan = ({ navigation }) => {
-    const data = {
-        "date": "2024-05-01",
-        "is_completed": 0,
-        "exercise": 'Exercise 566',
-        "part": 'belly'
-    }
+//    const data = {
+//        "date": "2024-05-01",
+//        "is_completed": 0,
+//        "exercise": 'Exercise 566',
+//        "part": '어깨'
+//    }
+//
+//    fetch('http://52.79.95.216:8080/calender', {
+//      method: 'POST',
+//      headers: {
+//        'Content-Type': 'application/json',
+//      },
+//      body: JSON.stringify(data),
+//    })
+//    .then(data => {
+//      console.log('SUCCESS :',data);
+//    })
+//    .catch(error => {
+//      console.error('ERROR : ', error);
+//    });
 
-    fetch('http://43.201.96.95:80/todo', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    .then(data => {
-      console.log('SUCCESS :',data);
-    })
-    .catch(error => {
-      console.error('ERROR : ', error);
-    });
-
-    // 차후 백데이터로부터 연결
-    const [list, setList] = useState(["2024-04-04", "2024-04-25", "2024-04-16", "2024-05-01"]); // 예시
     const [bodyTexts, setBodyTexts] = useState({
         어깨: ["어깨1","어깨2"],
         등: [],
@@ -46,7 +44,52 @@ const Plan = ({ navigation }) => {
         복부: [],
         하체: ["하체1"]
     });
-    const [markedDates, setMarkedDates] = useState({});
+
+    const [plannedDates, setPlannedDates] = useState({});
+    const monthPlanDay = async (month) => {
+      try {
+        const response = await fetch(`http://52.79.95.216:8080/calender?month=${month}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        console.log("response::",response);
+        const data = await response.json();
+
+        setPlannedDates(Object.keys(data).reduce((acc, current) => {
+          const monthString = String(month).padStart(2,'0')
+          const dayString = String(current).padStart(2, '0');
+          const dateString = `2024-${monthString}-${dayString}`;
+
+          acc[dateString] = {
+            selected: true,
+            selectedColor: data[current] ? '#99CCFF' : '#DFDDDD',
+            selectedTextColor: '#5B5B5B'
+          };
+          return acc;
+        }, {}));
+      } catch (error) {
+        console.error('ERROR: ', error);
+      }
+    };
+
+    const handleMonthChange = (month) => {
+      const newMonth = month.month;
+      console.log("neow~:",newMonth);
+      monthPlanDay(newMonth);
+    };
+
+    useEffect(() => {
+      const currentMonth = new Date().getMonth() + 1;
+      console.log("currentMonth:", currentMonth);
+      monthPlanDay(currentMonth);
+    }, []);
 
     // 백데이터 연결할 필요 x, 프론트에서만 처리
     const [selectedDay, setSelectedDay] = useState('');
@@ -79,14 +122,6 @@ const Plan = ({ navigation }) => {
         }))
     }
 
-    useEffect(() => {
-        setMarkedDates(list.reduce((acc, current) => {
-            acc[current] = {selected: true, selectedColor: '#99CCFF', selectedTextColor:'#5B5B5B' };
-            return acc;
-        }, {}));
-    }, [list]);
-
-
     return (
         <SafeAreaView style={styles.container}>
             <View id="calendar" style={styles.calendarContainer}>
@@ -98,7 +133,7 @@ const Plan = ({ navigation }) => {
                         setSelectedDay(day.dateString);
                     }}
                     markedDates={{
-                        ...markedDates,
+                        ...plannedDates,
                         [selectedDay]: {selected: true, disableTouchEvent: true, selectedColor: '#1047AD', textColor: 'white'}
                     }}
                     theme={{
@@ -110,7 +145,7 @@ const Plan = ({ navigation }) => {
                         textMonthFontWeight: 'bold',
                     }}
                     // 달이 바뀔 때 바뀐 달 출력
-                    onMonthChange={(month) => {console.log(month)}}
+                    onMonthChange={handleMonthChange}
                     // 달 이동 화살표 구현 왼쪽이면 왼쪽 화살표 이미지, 아니면 오른쪽 화살표 이미지
                     renderArrow={(direction) => direction === "left" ?
                         <Image name="left"
