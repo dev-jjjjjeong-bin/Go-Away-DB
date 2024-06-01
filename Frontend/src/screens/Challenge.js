@@ -1,7 +1,7 @@
 /* eslint-disable */
 
-import React from 'react';
-import { SafeAreaView, ScrollView, Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import BottomBar from '../components/BottomBar.js';
 import LogoLocation from '../components/LogoLocation.js';
 import ChallengeSuccessIcon from '../components/ChallengeSuccessIcon';
@@ -15,6 +15,31 @@ const levelDescriptions = {
 };
 
 const Challenge = ({ navigation }) => {
+  const [challenges, setChallenges] = useState([0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    const fetchChallenges = async () => {
+      try {
+        const response = await fetch('http://52.79.95.216:8080/challenge', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setChallenges(data);
+      } catch (error) {
+        console.error('Error fetching challenges:', error);
+      }
+    };
+
+    fetchChallenges();
+  }, []);
 
   return (
     <SafeAreaView style={styles.fullContainer}>
@@ -25,10 +50,7 @@ const Challenge = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {Object.keys(levelDescriptions).map((level, index) => (
           <TouchableOpacity key={level} style={styles.box}>
-
-            {/* 캘린더에서 조건 채우면 생성되는 성공 아이콘 */}
-            {/* <ChallengeSuccessIcon /> */}
-
+            {challenges[index] === 1 && <ChallengeSuccessIcon />}
             <View style={styles.textBox}>
               <Text style={styles.boxText}>{level}</Text>
               <Text style={styles.descriptionText}>{levelDescriptions[level]}</Text>
