@@ -18,7 +18,6 @@ const Home = ({ navigation }) => {
     navigation.navigate('Plan');
   };
 
-
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.box} onPress={gotoChallengeScreen}>
