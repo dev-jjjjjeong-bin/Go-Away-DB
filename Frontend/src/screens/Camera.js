@@ -30,7 +30,7 @@ const Camera = ({ navigation }) => {
     });
 
     try {
-      const response = await fetch('http://43.201.96.95:80/search', {
+      const response = await fetch('http://52.79.95.216:8080/search', {
         method: 'POST',
         body: formData,
         headers: {
