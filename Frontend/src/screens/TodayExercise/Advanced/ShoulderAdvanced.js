@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 const exercises = [
@@ -71,29 +71,75 @@ const ShoulderAdvanced = () => {
       setSelectedTriplets(newTripleGroups);
       setExistingTriplets(existingTriplets.concat(newTripleGroups));
       setRecommendationIndex(recommendationIndex + 1);
-    }
-    else {
-      alert('더 이상의 추천은 불가능합니다.');
+    } else {
+      Alert.alert('더 이상의 추천은 불가능합니다.');
     }
   };
 
-  const handleComplete = () => {
+  const getTodayDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  const postExercises = async (selectedExercises) => {
+    const todayDate = getTodayDate();
+    const exercisesArray = selectedExercises.split(' \n ');
+
+    for (let exercise of exercisesArray) {
+      const data = {
+        date: todayDate,
+        part: '어깨',
+        exercise: exercise,
+      };
+
+      try {
+        const response = await fetch('http://52.79.95.216:8080/todo', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        if (!result.isSuccess) {
+          Alert.alert('Error', result.message);
+        }
+      } catch (error) {
+        Alert.alert('Error', error.message);
+      }
+    }
+  };
+
+  const handleComplete = async () => {
     if (selected === null) {
-      alert('운동 구성을 선택해주세요.');
+      Alert.alert('운동 구성을 선택해주세요.');
       return;
     }
+
+    await postExercises(selected);
     navigation.navigate('Plan');
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (selected === null) {
-      alert('운동 구성을 선택해주세요.');
+      Alert.alert('운동 구성을 선택해주세요.');
       return;
     }
+
+    await postExercises(selected);
+
     if (!isLastSelection) {
       const currentPageIndex = route.params.selectedOptions.indexOf('option1');
       const nextPageOption = route.params.selectedOptions[currentPageIndex + 1];
-      let screenName = '';   // 실제 스크린 이름으로 변환 
+      let screenName = '';   // 실제 스크린 이름으로 변환
       switch (nextPageOption) {
         case 'option1': screenName = 'ShoulderAdvanced'; break;
         case 'option2': screenName = 'BackAdvanced'; break;

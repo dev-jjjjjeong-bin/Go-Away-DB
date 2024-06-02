@@ -4,17 +4,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-//import userInfo from "../UserInfo.json";
 
 const InputInfo = () => {
   const [state, setState] = useState(0);   // 0: 성별, 1: 나이, 2: 체격, 3: 완료
-  const [userInfo, setUserInfo] = useState({
-    "gender" : '',
-    "textAge": '',
-    "textHeight": '',
-    "textWeight": ''
-  });
-
   const [gender, setGender] = useState('');
   const [textAge, setTextAge] = useState('');
   const [textHeight, setTextHeight] = useState('');
@@ -64,20 +56,6 @@ const InputInfo = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    const updatedUserInfo = {...userInfo};
-    updatedUserInfo.gender = gender;
-    updatedUserInfo.age = parseInt(textAge);
-    updatedUserInfo.height = parseInt(textHeight);
-    updatedUserInfo.weight = parseInt(textWeight);
-
-    try {
-      await AsyncStorage.setItem('inputInfo', JSON.stringify(updatedUserInfo));
-      navigation.navigate('Home');
-    } catch (error) {
-      console.log("Error saving data: ", error);
-    }
-  }
   const handleGenderButtonPress = (selectedGender) => {
     setGender(selectedGender);
   };

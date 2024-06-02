@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const exercises = [
@@ -16,7 +16,6 @@ const exercises = [
   '덤벨 숄더 쉬러그 (3 set)',
   '원 암 케이블 레터럴 레이즈 (3 set)',
 ];
-const today = new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate();
 
 const createPairs = (exercises, existingPairs) => {
   let pairGroups = [];
@@ -41,7 +40,7 @@ const createPairs = (exercises, existingPairs) => {
   return pairGroups;
 };
 
-const ShoulderBeginner = () => {
+const AbsBeginner = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
   const [selectedPairs, setSelectedPairs] = useState([]);
@@ -70,24 +69,57 @@ const ShoulderBeginner = () => {
     }
   };
 
-  const uploadList = async (selected) => {
-    const listData = {
-      "date" : today,
-      "part" : "어깨",
-      "exercise" : selected
+  const getTodayDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  const postExercises = async (selectedExercises) => {
+    const todayDate = getTodayDate();
+    const exercisesArray = selectedExercises.split(' \n ');
+
+    for (let exercise of exercisesArray) {
+      const data = {
+        date: todayDate,
+        part: '어깨',
+        exercise: exercise,
+      };
+
+      try {
+        const response = await fetch('http://52.79.95.216:8080/todo', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        if (!result.isSuccess) {
+          Alert.alert('Error', result.message);
+        }
+      } catch (error) {
+        Alert.alert('Error', error.message);
+      }
     }
+  };
 
-    console.log(listData);
-  }
-
-  const gotoNextScreen = () => {
+  const gotoNextScreen = async () => {
     if (selected === null) {
-      alert('운동 구성을 선택해주세요.');
+      Alert.alert('운동 구성을 선택해주세요.');
       return;
     }
-    uploadList(selected);
+
+    await postExercises(selected);
     navigation.navigate('Plan');
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -215,4 +247,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShoulderBeginner;
+export default AbsBeginner;
