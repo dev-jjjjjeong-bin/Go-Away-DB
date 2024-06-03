@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    marginTop: 50,
+    marginTop: 80,
     marginLeft: 34,
-    fontFamily: 'SCDream7',
+    fontFamily: 'SCDream6',
     fontSize: 45,
     color: '#1047AD',
   },
