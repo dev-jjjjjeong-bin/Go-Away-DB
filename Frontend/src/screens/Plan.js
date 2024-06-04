@@ -76,12 +76,11 @@ const Plan = ({ navigation }) => {
   const handleMonthChange = (month) => {
     const newMonth = month.month;
     monthPlanDay(newMonth);
-    selectFirstOrToday(newMonth);
   };
 
   const handleDayPress = async (day) => {
     setSelectedDay(day.dateString);
-    setSelectedDayText(`${day.month}월 ${day.day}일`);
+    setSelectedDayText(`${day.year}년 ${day.month}월 ${day.day}일`);
     try {
       const response = await fetch(`http://52.79.95.216:8080/todo?date=${day.dateString}`, {
         method: 'GET',
@@ -134,19 +133,9 @@ const Plan = ({ navigation }) => {
     }
   };
 
-  const selectFirstOrToday = (month) => {
-    const today = new Date();
-    const isCurrentMonth = today.getMonth() + 1 === month;
-
-    const day = isCurrentMonth ? today.getDate() : 1;
-    const dateString = `2024-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    handleDayPress({ dateString, year: 2024, month, day });
-  };
-
   useEffect(() => {
     const currentMonth = new Date().getMonth() + 1;
     monthPlanDay(currentMonth);
-    selectFirstOrToday(currentMonth);
   }, []);
 
   useEffect(() => {
@@ -411,7 +400,7 @@ const styles = StyleSheet.create({
     width: '85%',
     borderRadius: 10,
     marginBottom: 15,
-    fontFamily:"SCDream4",
+    fontFamily: "SCDream4",
     paddingLeft: 15,
     fontSize: 16,
     color: 'black'
