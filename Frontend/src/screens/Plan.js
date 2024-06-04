@@ -317,7 +317,7 @@ const Plan = ({ navigation }) => {
                       />
                     ) : null}
                   </View>
-                  <Text id="listText" style={{fontFamily:"SCDream4", fontSize: 18, color: 'black'}}>{item.exercise}</Text>
+                  <Text id="listText" style={{fontFamily:"SCDream4", fontSize: 17, color: 'black'}}>{item.exercise}</Text>
                 </TouchableOpacity>
               ))}
               {showTextInput[part] && (
@@ -383,14 +383,14 @@ const styles = StyleSheet.create({
   },
   partText: {
     fontFamily: 'SCDream5',
-    fontSize: 16,
+    fontSize: 15,
     color: 'white'
   },
   listContainer: {
     flexDirection: 'row',
     backgroundColor: 'white',
     marginBottom: 15,
-    height: 46,
+    height: 43,
     borderRadius: 10,
     alignItems: 'center',
   },
@@ -411,8 +411,10 @@ const styles = StyleSheet.create({
     width: '85%',
     borderRadius: 10,
     marginBottom: 15,
-    fontFamily: 'SCDream5',
+    fontFamily:"SCDream4",
+    paddingLeft: 15,
     fontSize: 16,
+    color: 'black'
   },
   arrowContainer: {
     height: 46,
