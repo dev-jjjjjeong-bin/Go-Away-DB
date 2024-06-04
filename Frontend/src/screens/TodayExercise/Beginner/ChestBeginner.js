@@ -40,7 +40,7 @@ const createPairs = (exercises, existingPairs) => {
   return pairGroups;
 };
 
-const AbsBeginner = () => {
+const ChestBeginner = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
   const [selectedPairs, setSelectedPairs] = useState([]);
@@ -247,4 +247,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AbsBeginner;
+export default ChestBeginner;
